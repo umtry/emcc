@@ -1,0 +1,106 @@
+{|include 'common/box_header.html' box_title=$box_title datepicker=1|}
+<form class="form-horizontal" role="form" method="post">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <input type="hidden" name="handle" value="save"/>
+                    <input type="hidden" name="id" value="{|$matter['id']|}"/>
+                    <input type="hidden" name="user_id" value="{|$matter['user_id']|}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 类型 </label>
+                    <div class="col-sm-9">
+                        {|foreach($mcates as $val)|}
+                        <label style="margin-right: 10px;">
+                            <input name="intention" value="{|$val['st_id']|}" {|if $matter['intention']==$val['st_id']|}checked="checked"{|/if|} type="radio" class="ace"/>
+                            <span class="lbl"> {|$val['st_name']|} </span>
+                        </label>
+                        {|/foreach|}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 志愿者 </label>
+                    <div class="col-sm-5">
+                        <select name="stf_id" class="form-control">
+                            <option value="">请选择</option>
+                            {|foreach($staff as $val)|}
+                            <option value="{|$val['stf_id']|}" {|if $matter['stf_id']==$val['stf_id']|}selected{|/if|}>{|$val['real_name']|}({|$val['stf_name']|}) {|$val['service']|}</option>
+                            {|/foreach|}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> （上门）服务时间 </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="service_time" value="{|$matter['service_time']|dateformat:'Y-m-d H:i:s'|default:''|}" class="input-sm date-picker" data-date-format="yyyy-mm-dd"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 电话接听状态 </label>
+                    <div class="col-sm-5">
+                        <select name="answer_state" class="form-control">
+                            <option value="">请选择</option>
+                            {|foreach($answer_state as $key=>$val)|}
+                            <option value="{|$key|}" {|if $matter['answer_state']==$key|}selected{|/if|}>{|$val|}</option>
+                            {|/foreach|}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 内容(备注) </label>
+                    <div class="col-sm-9">
+                        <textarea class="col-xs-10 col-sm-9" name="content" placeholder="请填写事项内容信息">{|$matter['content']|}</textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"> 价格 </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="price" value="{|$matter['price']|}" class="input-sm" />元
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 支付状态 </label>
+                    <div class="col-sm-9">
+                        {|foreach($pay_status as $key=>$val)|}
+                        <label style="margin-right: 10px;">
+                            <input name="pay_status" value="{|$key|}" {|if $matter['pay_status'] == $key|}checked="checked"{|/if|} type="radio" class="ace"/>
+                            <span class="lbl"> {|$val|} </span>
+                        </label>
+                        {|/foreach|}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 状态 </label>
+                    <div class="col-sm-9">
+                        {|foreach($matter_status as $key=>$val)|}
+                        <label style="margin-right: 10px;">
+                            <input name="status" value="{|$key|}" {|if $matter['status'] == $key|}checked="checked"{|/if|} type="radio" class="ace"/>
+                            <span class="lbl"> {|$val|} </span>
+                        </label>
+                        {|/foreach|}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-sm" onclick="javascript:parentDialog.close();">
+            <i class="ace-icon fa fa-times"></i>
+            取消
+        </button>
+
+        <a class="btn btn-sm btn-primary ajsubmit">
+            <i class="ace-icon fa fa-check"></i>
+            保存
+        </a>
+    </div>
+</form>
+<script>
+    $('.date-picker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        language: 'zh-CN'
+    });
+</script>

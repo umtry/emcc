@@ -1,0 +1,59 @@
+{|include 'common/box_header.html' box_title=$box_title|}
+<div class="form-horizontal">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <input type="hidden" name="handle" value="save"/>
+                </div>
+                <div class="form-group">
+                    <form class="form-horizontal" role="form" method="post">
+                        <label class="col-sm-3 control-label no-padding-right"> 回复选项 </label>
+                        <div class="col-sm-9">
+                            <div class="input-group">
+                                <input type="text" name="rs_title" class="form-control search-query">
+                                <input type='hidden' name="handle" value='save'/>
+                                <input type="hidden" name="sid" value="{|$sid|}"/>
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success btn-sm ajsubmit">
+                                        添加
+                                        <i class="ace-icon fa fa-plus icon-on-right bigger-110"></i>
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <h3 class="header smaller lighter blue">已添加回复选项</h3>
+                {|if $rs_data|}
+                {|foreach($rs_data as $val)|}
+                <div class="form-group">
+                    <form class="form-horizontal" role="form" method="post">
+                        <label class="col-sm-3 control-label no-padding-right"> 回复选项 </label>
+                        <div class="col-sm-9">
+                            <input type="text" name="rs_title" value="{|$val['rs_title']|}" placeholder="回复选项" class="col-xs-10 col-sm-9" />
+                            <input type='hidden' name="handle" value='save'/>
+                            <input type="hidden" name="id" value="{|$val['id']|}"/>
+                            <input type="hidden" name="sid" value="{|$sid|}"/>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-purple btn-sm ajsubmit">
+                                    编辑
+                                    <i class="ace-icon fa fa-edit icon-on-right bigger-110"></i>
+                                </button>
+                            </span>
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-danger btn-sm ajlink" dataurl='delsrs.html' data-param='id={|$val[id]|}&sid={|$sid|}' linktype='del'>
+                                    删除
+                                    <i class="ace-icon fa fa-trash-o icon-on-right bigger-110"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </form>
+                </div>
+                {|/foreach|}
+                {|/if|}
+            </div>
+        </div>
+    </div>
+
+</div>

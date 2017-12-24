@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html'|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>系统栏目列表</h1>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="widget-box">
+											<div class="widget-header">
+												<h4 class="widget-title">添加系统栏目</h4>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+                                                    <form class="form-inline" action="" method="post">
+														<input type="text" name="sysnav_name" placeholder="请输入栏目名称" />
+														<button type="button" class="btn btn-info btn-sm">
+															提 交
+														</button>
+													</form>
+												</div>
+											</div>
+										</div>
+                                        <div class="space-6"></div>
+                                    </div>
+                                </div>
+								<div class="row">
+									<div class="col-xs-12">
+										<table id="sample-table-1" class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>排序</th>
+													<th>栏目名称</th>
+													<th></th>
+												</tr>
+											</thead>
+
+											<tbody>
+                                                {|foreach($sysnav as $val)|}
+												<tr>
+													<td>
+                                                        <input type="text" name="sort" value="{|$val['sort']|}" class="input-mini" />
+													</td>
+
+													<td>
+                                                        <input type="text" name="sysnav_name" value="{|$val['sysnav_name']|}" />
+													</td>
+
+													<td>
+														<div class="hidden-sm hidden-xs btn-group">
+															<button class="btn btn-xs btn-info">
+																<i class="ace-icon fa fa-pencil bigger-120"></i>
+															</button>
+
+															<button class="btn btn-xs btn-danger">
+																<i class="ace-icon fa fa-trash-o bigger-120"></i>
+															</button>
+														</div>
+
+														<div class="hidden-md hidden-lg">
+															<div class="inline position-relative">
+																<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+																	<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+																</button>
+
+																<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+																	<li>
+																		<a href="#" class="tooltip-success" data-rel="tooltip" title="编辑">
+																			<span class="green">
+																				<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+
+																	<li>
+																		<a href="#" class="tooltip-error" data-rel="tooltip" title="删除">
+																			<span class="red">
+																				<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																			</span>
+																		</a>
+																	</li>
+																</ul>
+															</div>
+														</div>
+													</td>
+												</tr>
+                                                {|/foreach|}
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="hr hr-18 dotted hr-double"></div>
+
+								
+
+								<div class="hr hr-18 dotted hr-double"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				$(document).on('click', 'th input:checkbox' , function(){
+					var that = this;
+					$(this).closest('table').find('tr > td:first-child input:checkbox')
+					.each(function(){
+						this.checked = that.checked;
+						$(this).closest('tr').toggleClass('selected');
+					});
+				});
+			
+			
+				$('[data-rel="tooltip"]').tooltip({placement: tooltip_placement});
+				function tooltip_placement(context, source) {
+					var $source = $(source);
+					var $parent = $source.closest('table');
+					var off1 = $parent.offset();
+					var w1 = $parent.width();
+			
+					var off2 = $source.offset();
+					//var w2 = $source.width();
+					if( parseInt(off2.left) < parseInt(off1.left) + parseInt(w1 / 2) ) return 'right';
+					return 'left';
+				}
+			});
+		</script>
+	</body>
+</html>

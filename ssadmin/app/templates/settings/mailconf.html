@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>站点设置</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    {|include 'settings/subnav.html'|}
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active">
+                                            <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 邮件发送模式 </label>
+                                                    <div class="col-sm-9">
+                                                        <label style="margin-right: 10px;">
+                                                            <input name="data[mail_type]" type="radio" class="ace" value='1' {|if $setting['mail']['mail_type']==1|}checked="checked"{|/if|} />
+                                                                   <span class="lbl"> SMTP 函数发送 </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 邮件服务器 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[mail_server]" value="{|$setting['mail']['mail_server']|}" placeholder="邮件服务器" class="input-sm input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 发件人地址 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[email]" value="{|$setting['mail']['email']|}" placeholder="发件人地址" class="input-sm input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 发件人姓名 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[name]" value="{|$setting['mail']['name']|}" placeholder="发件人姓名" class="input-sm input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 验证用户名 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[mail_username]" value="{|$setting['mail']['mail_username']|}" placeholder="验证用户名" class="input-sm input-xlarge" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 验证密码 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="password" name="data[mail_password]" value="{|$setting['mail']['mail_password']|}" placeholder="验证密码" class="input-sm input-xlarge" />
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix form-actions">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button class="btn btn-info ajsubmit" type="button">
+                                                            <i class="ace-icon fa fa-check bigger-110"></i> 提 交
+                                                        </button>
+                                                        &nbsp; &nbsp; &nbsp;
+                                                        <button class="btn" type="reset">
+                                                            <i class="ace-icon fa fa-undo bigger-110"></i> 重 置
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+
+            });
+        </script>
+    </body>
+</html>

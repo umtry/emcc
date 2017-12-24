@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>站点设置</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    {|include 'settings/subnav.html'|}
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active">
+                                            <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 开启水印 </label>
+                                                    <div class="col-sm-9">
+                                                        <label style="margin-right: 10px;">
+                                                            <input name="data[watermark_off]" type="radio" class="ace" value='1' {|if $setting['watermark']['watermark_off']==1|}checked="checked"{|/if|} />
+                                                                   <span class="lbl"> 启用 </span>
+                                                        </label>
+                                                        <label>
+                                                            <input name="data[watermark_off]" type="radio" class="ace" value='2' {|if $setting['watermark']['watermark_off']==2|}checked="checked"{|/if|} />
+                                                                   <span class="lbl"> 关闭 </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 水印类型 </label>
+                                                    <div class="col-sm-9">
+                                                        <label class='cbtn' style="margin-right: 10px;">
+                                                            <input name="data[watermark_type]" type="radio" class="ace" value='1' {|if $setting['watermark']['watermark_type']==1|}checked="checked"{|/if|} />
+                                                                   <span class="lbl"> 文字水印 </span>
+                                                        </label>
+                                                        <label class='cbtn'>
+                                                            <input name="data[watermark_type]" type="radio" class="ace" value='2' {|if $setting['watermark']['watermark_type']==2|}checked="checked"{|/if|} />
+                                                                   <span class="lbl"> 图片水印 </span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+
+                                                <div class="wtn {|if $setting['watermark']['watermark_type']==2|}hide{|/if|}" id='wt1'>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 水印文字 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_text]" value="{|$setting['watermark']['watermark_text']|}" placeholder="水印文字" class="input-sm input-large" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 文字颜色 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_color]" value="{|$setting['watermark']['watermark_color']|}" placeholder="文字颜色" class="input-sm input-large" />
+                                                            <span class="inline">
+                                                                <span class="help-block">填写如: #ff0000 的颜色值</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 文字字号 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_size]" value="{|$setting['watermark']['watermark_size']|}" placeholder="文字字号" class="input-sm input-large" />
+                                                            <span class="inline">
+                                                                <span class="help-block">单位像素(px)</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="wtn {|if $setting['watermark']['watermark_type']==1|}hide{|/if|}" id='wt2'>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 水印宽度 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_width]" value="{|$setting['watermark']['watermark_width']|}" placeholder="水印宽度" class="input-sm input-large" />
+                                                            <span class="inline">
+                                                                <span class="help-block">图片宽度 单位像素(px)</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 水印高度 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_height]" value="{|$setting['watermark']['watermark_height']|}" placeholder="水印高度" class="input-sm input-large" />
+                                                            <span class="inline">
+                                                                <span class="help-block">图片高度 单位像素(px)</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 水印图片 </label>
+                                                        <div class="col-sm-9">
+                                                            <div class="input-large">
+                                                                <input type="file" id="pic_url" name="pic_url">
+                                                                {|if $setting['watermark']['watermark_image']|}
+                                                                <a href="{|$setting['watermark']['watermark_image']|picsize|}" class="btn btn-xs btn-info" target="_blank">
+                                                                    查看上传图片
+                                                                    <i class="ace-icon fa fa-eye icon-on-right"></i>
+                                                                </a>
+                                                                {|/if|}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 水印透明度 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_apache]" value="{|$setting['watermark']['watermark_apache']|}" placeholder="水印透明度" class="input-sm input-large" />
+                                                            <span class="inline">
+                                                                <span class="help-block">请设置为0-100之间的数字，0代表完全透明，100代表不透明</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> JPEG 水印质量 </label>
+                                                        <div class="col-sm-9">
+                                                            <input type="text" name="data[watermark_good]" value="{|$setting['watermark']['watermark_good']|}" placeholder="JPEG 水印质量" class="input-sm input-large" />
+                                                            <span class="inline">
+                                                                <span class="help-block">水印质量请设置为0-100之间的数字,决定 jpg 格式图片的质量</span>
+                                                            </span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-sm-3 control-label no-padding-right"> 水印位置 </label>
+                                                        <div class="col-sm-9">
+                                                            <div class="col-sm-6">
+                                                                <table class="table table-bordered">
+                                                                    <tr>
+                                                                        <td rowspan="3" class="align-middle align-center">
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='s' {|if $setting['watermark']['watermark_sel']=='s'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 随机位置 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='tl' {|if $setting['watermark']['watermark_sel']=='tl'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 顶部居左 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='tc' {|if $setting['watermark']['watermark_sel']=='tc'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 顶部居中 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='tr' {|if $setting['watermark']['watermark_sel']=='tr'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 顶部居右 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='cl' {|if $setting['watermark']['watermark_sel']=='cl'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 中部居左 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='cc' {|if $setting['watermark']['watermark_sel']=='cc'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 中部居中 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='cr' {|if $setting['watermark']['watermark_sel']=='cr'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 中部居右 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='bl' {|if $setting['watermark']['watermark_sel']=='bl'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 底部居左 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='bc' {|if $setting['watermark']['watermark_sel']=='bc'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 底部居中 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                        <td>
+                                                                            <label>
+                                                                                <input name="data[watermark_sel]" type="radio" class="ace" value='br' {|if $setting['watermark']['watermark_sel']=='br'|}checked="checked"{|/if|} />
+                                                                                       <span class="lbl"> 底部居右 </span>
+                                                                            </label>
+                                                                        </td>
+                                                                    </tr>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix form-actions">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button class="btn btn-info ajsubmit" type="button">
+                                                            <i class="ace-icon fa fa-check bigger-110"></i> 提 交
+                                                        </button>
+                                                        &nbsp; &nbsp; &nbsp;
+                                                        <button class="btn" type="reset">
+                                                            <i class="ace-icon fa fa-undo bigger-110"></i> 重 置
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('#pic_url').ace_file_input({
+                    no_file: '暂无选择 ...',
+                    btn_choose: '请选择',
+                    btn_change: '更改',
+                    droppable: false,
+                    onchange: null,
+                    thumbnail: false,
+                    whitelist: 'gif|png|jpg|jpeg'
+                });
+                $('.cbtn').on('click', function (e) {
+                    var target = $(this).find('input[type=radio]');
+                    var which = parseInt(target.val());
+                    $('.wtn').addClass('hide');
+                    $('#wt' + which).removeClass('hide');
+                });
+            });
+        </script>
+    </body>
+</html>

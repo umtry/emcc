@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>权限资源分配</h1>
+						</div>
+                        
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <form class="form-horizontal">
+                                            <div class="form-group">
+                                                <label class="col-sm-3 control-label no-padding-right"> 用户组 </label>
+                                                <div class="col-sm-2">
+                                                    <select name="group_id" class="form-control" id="group-select">
+                                                        {|foreach($group as $val)|}
+                                                        <option value="{|$val['group_id']|}" {|if $group_id == $val['group_id']|} selected="selected"{|/if|}>{|$val['group_name']|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="hr hr-18 dotted hr-double"></div>
+                                <form class="form-horizontal" role="form" action="" method="post">
+                                {|foreach($sysnav as $key=>$val)|}
+								<div class="row">
+									<div class="col-xs-12">
+                                        <div class="page-header">
+                                            <h4>{|$val['sysnav_name']|}</h4>
+                                        </div>
+                                        {|foreach($val['license'] as $k=>$v)|}
+                                            <div class="checkbox form-group col-xs-2">
+                                                <label>
+                                                    <input name="lic[]" value="{|$v['license_id']|}" class="ace ace-checkbox-2" type="checkbox" {|if in_array($v['license_id'],$curlic)|} checked="checked"{|/if|}>
+                                                    <span class="lbl"> {|$v['license_name']|}</span>
+                                                </label>
+                                            </div>
+                                        {|/foreach|}
+									</div><!-- /.span -->
+								</div><!-- /.row -->
+								<div class="hr hr-18 dotted hr-double"></div>
+                                {|/foreach|}
+                                <div class="clearfix form-actions">
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <button class="btn btn-info" type="submit">
+                                            <i class="ace-icon fa fa-check bigger-110"></i>
+                                            提 交
+                                        </button>
+                                        &nbsp; &nbsp; &nbsp;
+                                        <button class="btn" type="reset">
+                                            <i class="ace-icon fa fa-undo bigger-110"></i>
+                                            重 置
+                                        </button>
+                                    </div>
+                                </div>
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        <script type="text/javascript">
+			jQuery(function($) {
+				$("#group-select").change(function(){
+                    var value = $(this).val();
+                    window.location.href="licgroup.html?group_id="+value;
+                });
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>快递收发件列表</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>电话：
+                                                    <input class="input-sm" type="text" name="phone" value="{|$get['phone']|}">
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>快递单号：
+                                                    <input class="input-sm" type="text" name="ex_number" value="{|$get['ex_number']|}">
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>客户：
+                                                    <input class="input-sm input-small" type="text" name="real_name" value="{|$get['real_name']|}">
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>收发类型：
+                                                    <select name="ex_type">
+                                                        <option value="">全部</option>
+                                                        <option value="1" {|if $get['ex_type']==1|}selected{|/if|}>代发</option>
+                                                        <option value="2" {|if $get['ex_type']==2|}selected{|/if|}>代收</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>支付状态：
+                                                    <select name="pay_status">
+                                                        <option value="">全部</option>
+                                                        {|foreach($pay_status as $key=>$val)|}
+                                                        <option value="{|$key|}" {|if $get['pay_status'] == $key|}selected{|/if|}>{|$val|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>状态：
+                                                    <select name="status">
+                                                        <option value="">全部</option>
+                                                        {|foreach($exp_status as $key=>$val)|}
+                                                        <option value="{|$key|}" {|if $get['status'] == $key|}selected{|/if|}>{|$val|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label><input type="submit" value="查询" class="btn btn-xs btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <form action="/ssadmin/ajax/imassuser.html" role="form" method="post">
+                                        <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                            <thead>
+                                                <tr>
+                                                    <th class="center">
+                                                        <label class="position-relative">
+                                                            <input type="checkbox" class="ace" />
+                                                            <span class="lbl"></span>
+                                                        </label>
+                                                    </th>
+                                                    <th>序号</th>
+                                                    <th>客户/电话</th>
+                                                    <th>收/发件</th>
+                                                    <th>快递单号</th>
+                                                    <th>地址</th>
+                                                    <th>价格/支付</th>
+                                                    <th>支付时间</th>
+                                                    <th>录入时间</th>
+                                                    <th>状态</th>
+                                                    <th>已发送/已领取</th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {|foreach($express as $val)|}
+                                                <tr>
+                                                    <td class="center">
+                                                        <label class="position-relative">
+                                                            <input type="checkbox" class="ace" name='mids[]' value="{|$val['user_id']|}##{|$val['real_name']|}##{|$val['phone']|}"/>
+                                                            <span class="lbl"></span>
+                                                        </label>
+                                                    </td>
+                                                    <td>{|$val['ex_id']|}</td>
+                                                    <td>{|$val['real_name']|}/{|$val['phone']|}</td>
+                                                    <td>{|if $val['ex_type']==1|}代发{|/if|}{|if $val['ex_type']==2|}代收{|/if|}</td>
+                                                    <td>{|$val['ex_number']|}</td>
+                                                    <td>{|$val['area_name']|} {|$val['street_name']|} {|$val['shequ_name']|} {|$val['address']|}</td>
+                                                    <td>
+                                                        ￥{|$val['price']|}/
+                                                        {|$pay_status[$val['pay_status']]|}
+                                                    </td>
+                                                    <td>{|$val['pay_time']|dateformat|default:''|}</td>
+                                                    <td>{|$val['add_time']|dateformat:'Y-m-d H:i'|}</td>
+                                                    <td>
+                                                        <span class="label 
+                                                              {|if $val['status']==1|}label-danger{|/if|} 
+                                                              {|if $val['status']==2|}label-success{|/if|} ">
+                                                            {|if $val['ex_type']==1|}{|$expf_status[$val['status']]|}{|/if|}
+                                                            {|if $val['ex_type']==2|}{|$exps_status[$val['status']]|}{|/if|}
+                                                        </span>
+                                                    </td>
+                                                    <td>{|$val['comp_time']|dateformat|default:''|}</td>
+                                                    <td>
+                                                        <div class="btn-group">
+                                                            <button class="btn btn-xs btn-info ajdialog" dataurl="boxeexpress.html?ex_id={|$val['ex_id']|}" datatitle="编辑状态">
+                                                                <i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+                                                            </button>
+                                                            <button class="btn btn-xs btn-danger ajlink" dataurl="dexpress.html" data-param="ex_id={|$val['ex_id']|}" linktype="del">
+                                                                <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                                                            </button>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                {|/foreach|}
+                                            </tbody>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-sm-6 col-xs-6">
+                                                查询结果：{|$count|}
+                                                <br>
+                                                <label>
+                                                    <select name="mass" class="form-control">
+                                                        <option value="">请选择群发项目</option>
+                                                        {|foreach($mass as $val)|}
+                                                        <option value="{|$val['mass_id']|}" title="{|$val['content']|}">【{|if $val['type']==1|}语音{|/if|}{|if $val['type']==2|}短信{|/if|}】 {|$val['add_time']|dateformat:'Y-m-d'|}. {|$val['content']|substr:'9','...'|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </label>
+                                                <br>
+                                                <label style='margin-right: 10px;'>
+                                                    <input name="send_type" type="radio" class="ace" value='1' checked="checked" />
+                                                    <span class="lbl">群发选中用户 </span>
+                                                </label>
+                                                <label>
+                                                    <input name="send_type" type="radio" class="ace" value='2' />
+                                                    <span class="lbl">群发搜索用户 </span>
+                                                </label>
+                                                <br>
+                                                <input type="hidden" name="get_str" value="{|$get_str|}"/>
+                                                <button type="button" class="btn btn-white btn-primary btn-sm ajsubmit" style="display: none;">确认添加</button>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                {|if $express|}
+                                                {|include 'common/page/style2.html'|}
+                                                {|/if|}
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $(document).on('click', 'th input:checkbox', function () {
+                    var that = this;
+                    $(this).closest('table').find('tr > td:first-child input:checkbox')
+                        .each(function () {
+                            this.checked = that.checked;
+                            $(this).closest('tr').toggleClass('selected');
+                        });
+                });
+            });
+        </script>
+    </body>
+</html>

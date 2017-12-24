@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>事项列表</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>电话：
+                                                    <input class="input-sm" type="text" name="phone" value="{|$get['phone']|}">
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>客户：
+                                                    <input class="input-sm input-small" type="text" name="real_name" value="{|$get['real_name']|}">
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>事项：
+                                                    <select name="intention">
+                                                        <option value="">全部</option>
+                                                        {|foreach($mattercate as $val)|}
+                                                        <option value="{|$val['st_id']|}" {|if $get['intention']==$val['st_id']|}selected{|/if|}>{|$val['st_name']|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>支付状态：
+                                                    <select name="pay_status">
+                                                        <option value="">全部</option>
+                                                        {|foreach($pay_status as $key=>$val)|}
+                                                        <option value="{|$key|}" {|if $get['pay_status'] == $key|}selected{|/if|}>{|$val|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label>状态：
+                                                    <select name="status">
+                                                        <option value="">全部</option>
+                                                        {|foreach($matter_status as $key=>$val)|}
+                                                        <option value="{|$key|}" {|if $get['status'] == $key|}selected{|/if|}>{|$val|}</option>
+                                                        {|/foreach|}
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-4 col-xs-6">
+                                                <label><input type="submit" value="查询" class="btn btn-xs btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>客户/电话</th>
+                                                <th>事项</th>
+                                                <th>地址</th>
+                                                <th>价格/支付</th>
+                                                <th>志愿者</th>
+                                                <th>录入人</th>
+                                                <th>录入时间</th>
+                                                <th>状态</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {|foreach($matter as $val)|}
+                                            <tr>
+                                                <td>{|$val['id']|}</td>
+                                                <td>{|$val['real_name']|}/{|$val['phone']|}</td>
+                                                <td>{|$val['intention_name']|}</td>
+                                                <td>{|$val['area_name']|} {|$val['address']|}</td>
+                                                <td>
+                                                    ￥{|$val['price']|}/
+                                                    {|$pay_status[$val['pay_status']]|}
+                                                </td>
+                                                <td>{|$val['stf_name']|}{|if $tmp_staffs[$val['stf_id']]|}({|$tmp_staffs[$val['stf_id']]|}){|/if|}</td>
+                                                <td>{|$val['admin_name']|}</td>
+                                                <td>{|$val['add_time']|dateformat:'Y-m-d H:i'|}</td>
+                                                <td>
+                                                    <span class="label 
+                                                            {|if $val['status']==1|}label-warning{|/if|} 
+                                                            {|if $val['status']==2|}label-info{|/if|} 
+                                                            {|if $val['status']==3|}label-danger{|/if|} 
+                                                            {|if $val['status']==4|}label-success{|/if|} ">
+                                                          {|$matter_status[$val['status']]|}
+                                                      </span>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-xs btn-info ajdialog" dataurl="boxematter.html?id={|$val['id']|}" datatitle="编辑状态">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+                                                        </button>
+                                                        <button class="btn btn-xs btn-danger ajlink" dataurl="dmatter.html" data-param="id={|$val['id']|}" linktype="del">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {|/foreach|}
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-6">
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            {|if $matter|}
+                                            {|include 'common/page/style2.html'|}
+                                            {|/if|}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+
+            });
+        </script>
+    </body>
+</html>

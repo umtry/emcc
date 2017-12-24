@@ -1,0 +1,20 @@
+<div class="cm_page">
+	<a class="prev_btn {if $_p[prepg] == null}prev_no{/if}" href="{if $_p[prepg] == null}#{else}/{$_p[prepg]}{/if}"><u>上一页</u></a>
+	{if $_p[start]>1}
+	<a href="/{$_p[first]}"><u>1</u></a>  
+	<span>...</span>
+	{/if}
+        {foreach ($_p[pages] as $key=>$item)}
+	<a {if $_p[currpage] == $item[page]}class="page_cur"{/if} href="/{$item[url]}"><u>{$item[page]}</u></a>  
+	{/foreach}
+	{if ($_p[start]+$_p[max])<$_p[pagenum]}
+	<span>...</span>
+	<a href="/{$_p[last]}"><u>{$_p[pagenum]}</u></a>  
+	{/if}
+	<a class="next_btn {if $_p[nextpg] == null}next_no{/if}" href="{if $_p[nextpg] == null}#{else}/{$_p[nextpg]}{/if}"><u>下一页</u></a>
+	<span class="text">共{$_p[pagenum]}页</span>
+	到第
+	<input class="ipt" name="cur_page" type="text"  id="cur_page2" />
+	页
+	<input class="btn" name="sure" type="button" value="确定"  onclick="window.location.href='/{$_p[first]}'.replace('page-1','page-'+$('#cur_page2').val());" />
+</div>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>新增居民信息</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 widget-container-col">
+                                        <form class="form-horizontal" role="form" method="post">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <div class="profile-user-info">
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"><i class="ace-icon fa fa-asterisk red2"></i> 姓名 </div>
+                                                            <div class="profile-info-value">
+                                                                <span><input type="text" name="real_name" value="" class="input-sm input-small"/></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"><i class="ace-icon fa fa-asterisk red2"></i> 性别 </div>
+                                                            <div class="profile-info-value">
+                                                                <span>
+                                                                    <label style="margin-right: 10px;">
+                                                                        <input name="sex" type="radio" class="ace" value='1'/>
+                                                                               <span class="lbl"> 男 </span>
+                                                                    </label>
+                                                                    <label>
+                                                                        <input name="sex" type="radio" class="ace" value='2'/>
+                                                                               <span class="lbl"> 女 </span>
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> 联系电话 </div>
+                                                            <div class="profile-info-value">
+                                                                <input type="text" name="phone" value="{|$phone|}" class="input-sm red"/>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3 center">
+                                                    
+                                                </div>
+                                            </div>
+
+                                            <div class="form-actions center">
+                                                <button type="button" id="subtn" class="btn btn-sm btn-success ajsubmit" data-name="subtn">
+                                                    <i class="ace-icon fa fa-floppy-o bigger-120"></i>
+                                                    保存并进入下一步
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-6">
+                                        
+                                    </div>
+                                </div>
+                                <div class="space-24"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+            });
+        </script>
+    </body>
+</html>

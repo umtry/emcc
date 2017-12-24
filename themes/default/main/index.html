@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link type="text/css" rel="stylesheet" href="{|$siteurl[assets_curtemplate]|}/notes/jquery-notes_css/style.css" />
+        <!--[if lte IE 8]>
+        <link rel="stylesheet" title="Standard" href="{|$siteurl[assets_curtemplate]|}/notes/jquery-notes_css/lteIE8.css" type="text/css" media="all" />
+        <![endif]-->
+        <script type="text/javascript" src="{|$siteurl[assets]|}/jquery.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="{|$siteurl[assets_curtemplate]|}/jqueryui/jquery-ui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="{|$siteurl[assets_curtemplate]|}/notes/jquery-notes_js/jquery-notes_1.0.8.js" charset="utf-8"></script>
+    </head>
+    <body>
+        <div>
+            <img src="upload/201501/12/87ac78744afaca50fb8ac9f39fcfc078.png" alt="" width="800" height="600" class="jquery-note_1-1" />
+        </div>
+    </body>
+    <script>
+        $('.jquery-note_1-1').jQueryNotes({
+            loadNotes: true,
+            operator: '/ajax/hotnotes.html',
+            maxNotes: 10
+        });
+    </script>
+</html>

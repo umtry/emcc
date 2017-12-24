@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>站点设置</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="tabbable">
+                                    {|include 'settings/subnav.html'|}
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active">
+                                            <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 网站地址 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[siteurl]" value="{|$setting['site']['siteurl']|}" placeholder="网站地址" class="input-sm input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 网站名称 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[title]" value="{|$setting['site']['title']|}" placeholder="网站名称" class="input-sm input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 网站短名称 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[seotitle]" value="{|$setting['site']['seotitle']|}" placeholder="网站短名称" class="input-sm input-large" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 网站LOGO </label>
+                                                    <div class="col-sm-9">
+                                                        <div class="input-large">
+                                                            <input type="file" id="pic_logo" name="pic_url">
+                                                            {|if $setting['site']['sitelogo']|}
+                                                            <a href="{|$setting['site']['sitelogo']|picsize|}" class="btn btn-xs btn-info" target="_blank">
+                                                                查看上传图片
+                                                                <i class="ace-icon fa fa-eye icon-on-right"></i>
+                                                            </a>
+                                                            {|/if|}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 网站关键字 </label>
+                                                    <div class="col-sm-9">
+                                                        <input type="text" name="data[seokeyword]" value="{|$setting['site']['seokeyword']|}" placeholder="网站关键字" class="input-sm input-xlarge" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 网站描述 </label>
+                                                    <div class="col-sm-9">
+                                                        <textarea class="input-xlarge" name="data[seocont]" placeholder="网站描述">{|$setting['site']['seocont']|}</textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-3 control-label no-padding-right"> 版权信息 </label>
+                                                    <div class="col-sm-9">
+                                                        <textarea class="input-xlarge" name="data[copyright]" placeholder="版权信息">{|$setting['site']['copyright']|}</textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix form-actions">
+                                                    <div class="col-md-offset-3 col-md-9">
+                                                        <button class="btn btn-info ajsubmit" type="button">
+                                                            <i class="ace-icon fa fa-check bigger-110"></i> 提 交
+                                                        </button>
+                                                        &nbsp; &nbsp; &nbsp;
+                                                        <button class="btn" type="reset">
+                                                            <i class="ace-icon fa fa-undo bigger-110"></i> 重 置
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('#pic_logo').ace_file_input({
+                    no_file: '暂无选择 ...',
+                    btn_choose: '请选择',
+                    btn_change: '更改',
+                    droppable: false,
+                    onchange: null,
+                    thumbnail: false,
+                    whitelist: 'gif|png|jpg|jpeg'
+                });
+            });
+        </script>
+    </body>
+</html>

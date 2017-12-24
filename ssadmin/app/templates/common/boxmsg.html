@@ -1,0 +1,32 @@
+{|include 'common/box_header.html' box_title=$box_title|}
+<div class="row">
+    <div class="col-xs-12">
+        <!-- PAGE CONTENT BEGINS -->
+        <!-- #section:pages/error -->
+        <div class="error-container">
+            <div class="well">
+                <h1 class="grey lighter smaller">
+                    <span class="blue bigger-125">
+                        <i class="ace-icon fa fa-bolt"></i>
+                        {|$boxtitle|default:'错误提示'|}
+                    </span>
+                </h1>
+                <hr>
+                <h3 class="lighter smaller">{|$boxmsg|}</h3>
+                <hr>
+                <div class="space"></div>
+
+                <div class="center">
+                    <a href="javascript:parentDialog.close()" class="btn btn-danger">
+                        <i class="ace-icon fa fa-times"></i>
+                        关闭
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- /section:pages/error -->
+
+        <!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.row -->

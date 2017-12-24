@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>事项分类列表</h1>
+						</div>
+                        
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-danger btn-sm ajdialog" dataurl="boxmcate.html" datatitle="添加新分类" href="javascript:;">
+                                            <i class="ace-icon fa glyphicon-plus"></i>添加新分类
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="hr hr-18 dotted hr-double"></div>
+								<div class="row">
+									<div class="col-xs-12">
+										<table class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>序号</th>
+                                                    <th>事项分类名称</th>
+													<th>状态</th>
+                                                    <th>排序</th>
+													<th></th>
+												</tr>
+											</thead>
+
+											<tbody>
+                                                {|foreach($rs_data as $val)|}
+												<tr>
+													<td>{|$val['st_id']|}</td>
+                                                    <td>{|$val['seq']|substrcount:','|forwhat|}|-{|$val['st_name']|}</td>
+													<td>
+                                                        {|if $val['status']==1|}<span class="label label-success">启用</span>{|/if|}
+                                                        {|if $val['status']==2|}<span class="label label-danger">禁用</span>{|/if|}
+                                                    </td>
+                                                    <td>{|$val['sort']|}</td>
+													<td>
+														<div class="btn-group">
+															<a class="btn btn-xs btn-info ajdialog" title="编辑事项分类" dataurl="boxmcate.html?st_id={|$val[st_id]|}" datatitle="编辑事项分类" href="javascript:;">
+																<i class="ace-icon fa fa-pencil bigger-120"></i> 编辑
+															</a>
+														</div>
+													</td>
+												</tr>
+                                                {|/foreach|}
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<div class="hr hr-18 dotted hr-double"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,9 @@
+<div class="cm_page">
+    <a href="/{$_p[first]}">First</a>
+    <a class="prev_btn {if $_p[prepg]==null}prev_no{/if}" href="{if $_p[prepg]==null}#{else}/{$_p[prepg]}{/if}"><u>Prev</u></a>
+    {foreach ($_p[pages] as $key=>$item)}
+    <a {if $_p[currpage] == $item['page']}class="page_cur"{/if} href="/{$item['url']}"><u>{$item['page']}</u></a>  
+    {/foreach}
+    <a class="next_btn {if $_p[nextpg]==null}next_no{/if}" href="{if $_p[nextpg]==null}#{else}/{$_p[nextpg]}{/if}"><u>Next</u></a>
+    <a href="/{$_p[last]}">Last</a>
+</div>

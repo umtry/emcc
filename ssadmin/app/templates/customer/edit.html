@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html' datepicker=1|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>居民信息</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12 col-sm-6 widget-container-col">
+                                        <form class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-xs-12 col-sm-9">
+                                                    <div class="profile-user-info">
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> 射频ID </div>
+                                                            <div class="profile-info-value">
+                                                                <input type="text" name="rfid_id" value="{|$customer['rfid_id']|}" class="input-sm"/>
+                                                                <span>
+                                                                    <button type="button" class="btn btn-xs btn-success ajsubmit" dataurl="bindrfid.html">
+                                                                        <i class="ace-icon fa fa-lock bigger-110"></i> 绑定ID号
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"><i class="ace-icon fa fa-asterisk red2"></i> 姓名,性别 </div>
+                                                            <div class="profile-info-value">
+                                                                <span><input type="text" name="real_name" value="{|$customer['real_name']|}" class="input-small"/></span>
+                                                                <span>
+                                                                    <label style="margin-right: 10px;">
+                                                                        <input name="sex" type="radio" class="ace" value='1' {|if $customer['sex']==1|} checked="checked"{|/if|} />
+                                                                               <span class="lbl"> 男 </span>
+                                                                    </label>
+                                                                    <label>
+                                                                        <input name="sex" type="radio" class="ace" value='2' {|if $customer['sex']==2|} checked="checked"{|/if|} />
+                                                                               <span class="lbl"> 女 </span>
+                                                                    </label>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> 联系电话 </div>
+                                                            <div class="profile-info-value">
+                                                                <input type="text" name="phone" value="{|$customer['phone']|}" class="input-sm red"/>
+                                                                <span>
+                                                                    <button type="button" class="btn btn-xs btn-success onlineCallBtn">
+                                                                        <i class="ace-icon fa fa-phone bigger-110"></i>
+                                                                        一键呼叫
+                                                                    </button>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="profile-info-row">
+                                                            <div class="profile-info-name"> 身份证号 </div>
+                                                            <div class="profile-info-value">
+                                                                <span><input type="text" name="idcard" value="{|$customer['idcard']|}" class="input-sm"/></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-12 col-sm-3 center">
+                                                    <span class="profile-picture" data-name="profile-picture">
+                                                        {|if $customer['avatar']|}
+                                                        <img class="img-responsive" alt="{|$customer['real_name']|}" src="{|$customer['avatar']|picsize|}" />
+                                                        {|/if|}
+                                                    </span>
+                                                    <div class="space-12"></div>
+                                                    <input type="file" id="pic_url" name="pic_url" data-name="pic_url">
+                                                </div>
+                                            </div>
+
+                                            <div class="space-12"></div>
+                                            <div class="profile-user-info profile-user-info-striped">
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 所在地区 </div>
+                                                    <div class="profile-info-value">
+                                                        <span>
+                                                            <select name="area_id" id='area_id' class="region_cate">
+                                                                <option value="">请选择</option>
+                                                                {|foreach($region['areas'] as $key=>$val)|}
+                                                                <option value="{|$val['region_id']|}" {|if $val['region_id']==$customer['area_id']|}selected{|/if|}>{|$val['region_name']|}</option>
+                                                                {|/foreach|}
+                                                            </select>
+                                                        </span>
+                                                        <span>
+                                                            <select name="street_id" id='street_id' class="region_cate">
+                                                                <option value="">请选择</option>
+                                                                {|foreach($region['streets'] as $key=>$val)|}
+                                                                <option value="{|$val['region_id']|}" {|if $val['region_id']==$customer['street_id']|}selected{|/if|}>{|$val['region_name']|}</option>
+                                                                {|/foreach|}
+                                                            </select>
+                                                        </span>
+                                                        <span>
+                                                            <select name="shequ_id" id='shequ_id' class="region_cate">
+                                                                <option value="">请选择</option>
+                                                                {|foreach($region['shequs'] as $key=>$val)|}
+                                                                <option value="{|$val['region_id']|}" {|if $val['region_id']==$customer['shequ_id']|}selected{|/if|}>{|$val['region_name']|}</option>
+                                                                {|/foreach|}
+                                                            </select>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 详细地址 </div>
+                                                    <div class="profile-info-value">
+                                                        <span><input type="text" name="address" value="{|$customer['address']|}" class="col-xs-10 col-sm-9 input-sm"/></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> QQ </div>
+                                                    <div class="profile-info-value">
+                                                        <span><input type="text" name="qq" value="{|$customer['qq']|}" class="input-sm"/></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> Email </div>
+                                                    <div class="profile-info-value">
+                                                        <span><input type="text" name="email" value="{|$customer['email']|}" class="input-sm"/></span>
+                                                    </div>
+                                                </div>
+                                                <div class="profile-info-row">
+                                                    <div class="profile-info-name"> 备注 </div>
+                                                    <div class="profile-info-value">
+                                                        <span><textarea class="col-xs-10 col-sm-9 input-sm" name="resume">{|$customer['resume']|}</textarea></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="form-actions center">
+                                                <input type="hidden" name="user_id" value="{|$customer['user_id']|}"/>
+                                                <button type="button" id="subtn" class="btn btn-sm btn-success ajsubmit" data-name="subtn">
+                                                    <i class="ace-icon fa fa-floppy-o bigger-120"></i>
+                                                    保 存 基 本 信 息
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-xs-12 col-sm-6">
+                                        <div class="tabbable">
+                                            <ul class="nav nav-tabs" id="myTab">
+                                                <li>
+                                                    <a data-toggle="tab" href="#service">
+                                                        <i class="green ace-icon fa fa-comments bigger-120"></i>服务流程
+                                                    </a>
+                                                </li>
+                                                <li class="active">
+                                                    <a data-toggle="tab" href="#matters">
+                                                        <i class="green ace-icon fa fa-tasks bigger-120"></i>事项记录
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a data-toggle="tab" href="#express">
+                                                        <i class="green ace-icon fa fa-envelope bigger-120"></i>快递记录
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a data-toggle="tab" href="#callrecord">
+                                                        <i class="green ace-icon fa fa-phone bigger-120"></i>通话记录
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a data-toggle="tab" href="#sendmsg">
+                                                        <i class="green ace-icon fa fa-send bigger-120"></i>发送短信
+                                                    </a>
+                                                </li>
+                                            </ul>
+
+                                            <div class="tab-content">
+                                                <div id="service" data-name='loadservice' class="tab-pane fade">
+                                                    <div class="alert">
+                                                        数据读取中...
+                                                    </div>
+                                                </div>
+
+                                                <div id="matters" class="tab-pane fade in active">
+                                                    <div class="widget-box widget-color-dark">
+                                                        <div class="widget-header widget-hea1der-small">
+                                                            <h4 class="widget-title bigger lighter">
+                                                                <i class="ace-icon fa fa-tasks"></i>
+                                                                事项记录
+                                                            </h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="javascript:;" id="refresh_matters" class="ajlink" dataurl="loadmatter.html" data-param="user_id={|$customer['user_id']|}" data-method="get">
+                                                                    <i class="ace-icon fa fa-refresh"></i>
+                                                                </a>
+
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="widget-toolbar no-border">
+                                                                <button class="btn btn-xs btn-danger bigger ajdialog" dataurl="boxematter.html?user_id={|$customer['user_id']|}" datah="500" datatitle="添加新事项">
+                                                                    <i class="ace-icon fa glyphicon-plus"></i>添加新事项
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main no-padding">
+                                                                <table class="table table-striped table-bordered table-hover">
+                                                                    <thead class="thin-border-bottom">
+                                                                        <tr>
+                                                                            <th>时间</th>
+                                                                            <th>志愿者</th>
+                                                                            <th>事项</th>
+                                                                            <th>价格</th>
+                                                                            <th>状态</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody data-name="loadmatter">
+                                                                        <tr>
+                                                                            <td colspan="6">数据读取中...</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <div id="express" class="tab-pane fade">
+                                                    <div class="widget-box widget-color-dark">
+                                                        <div class="widget-header widget-hea1der-small">
+                                                            <h4 class="widget-title bigger lighter">
+                                                                <i class="ace-icon fa fa-envelope-o"></i>快递记录
+                                                            </h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+                                                            </div>
+                                                            <div class="widget-toolbar no-border">
+                                                                <button class="btn btn-xs btn-danger bigger ajdialog" dataurl="boxeexpress.html?user_id={|$customer['user_id']|}" datah="500" datatitle="添加新快递">
+                                                                    <i class="ace-icon fa glyphicon-plus"></i>新增快递记录
+                                                                </button>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main no-padding">
+                                                                <table class="table table-striped table-bordered table-hover">
+                                                                    <thead class="thin-border-bottom">
+                                                                        <tr>
+                                                                            <th>录入时间</th>
+                                                                            <th>收发</th>
+                                                                            <th>单号</th>
+                                                                            <th>价格</th>
+                                                                            <th>状态</th>
+                                                                            <th></th>
+                                                                        </tr>
+                                                                    </thead>
+                                                                    <tbody data-name="loadexpress">
+                                                                        <tr>
+                                                                            <td colspan="6">数据读取中...</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div id="callrecord" class="tab-pane fade">
+                                                    <div class="widget-box widget-color-blue">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title bigger lighter">
+                                                                <i class="ace-icon fa fa-phone"></i>通话记录
+                                                            </h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="reload" dataurl="loadcallrecord.html" data-param="user_id={|$customer['user_id']|}" class="ajlink">
+                                                                    <i class="ace-icon fa fa-refresh"></i>
+                                                                </a>
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main no-padding">
+                                                                <table class="table table-striped table-bordered table-hover">
+                                                                    <thead class="thin-border-bottom">
+                                                                        <tr>
+                                                                            <th>呼入/出时间</th>
+                                                                            <th>接听状态</th>
+                                                                            <th>客服</th>
+                                                                            <th>录音</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody data-name="loadcallrecord">
+                                                                        <tr>
+                                                                            <td colspan="4">数据读取中...</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="sendmsg" class="tab-pane fade">
+                                                    <div class="widget-box transparent">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title bigger lighter">
+                                                                <i class="ace-icon fa fa-send"></i>发送短信
+                                                            </h4>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main padding-6 no-padding-left no-padding-right">
+                                                                <form class="form-horizontal" action="sendmsg.html" role="form" method="post">
+                                                                    <div class="form-group">
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-3 control-label no-padding-right"> 接收短信手机 </label>
+                                                                        <div class="col-sm-9">
+                                                                            <input type="text" name="msg_phone" value="{|$customer['phone']|}" placeholder="接收短信手机" class="col-xs-10 col-sm-9" />
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <label class="col-sm-3 control-label no-padding-right"> 短信内容 </label>
+                                                                        <div class="col-sm-9">
+                                                                            <textarea class="col-xs-10 col-sm-9 input-sm" name="msg" data-name="msg" placeholder="短信内容"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-actions center">
+                                                                        <button type="button" class="btn btn-sm btn-success ajsubmit">
+                                                                            发送短信
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="widget-box widget-color-blue">
+                                                        <div class="widget-header">
+                                                            <h4 class="widget-title bigger lighter">
+                                                                <i class="ace-icon fa fa-phone"></i>发送记录
+                                                            </h4>
+                                                            <div class="widget-toolbar">
+                                                                <a href="#" data-action="reload" dataurl="loadmsglog.html" data-param="phone={|$customer['phone']|}" class="ajlink">
+                                                                    <i class="ace-icon fa fa-refresh"></i>
+                                                                </a>
+                                                                <a href="#" data-action="collapse">
+                                                                    <i class="ace-icon fa fa-chevron-up"></i>
+                                                                </a>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="widget-body">
+                                                            <div class="widget-main no-padding">
+                                                                <table class="table table-striped table-bordered table-hover">
+                                                                    <thead class="thin-border-bottom">
+                                                                        <tr>
+                                                                            <th>时间</th>
+                                                                            <th>内容</th>
+                                                                            <th>状态</th>
+                                                                        </tr>
+                                                                    </thead>
+
+                                                                    <tbody data-name="loadmsglog">
+                                                                        <tr>
+                                                                            <td colspan="3">请点击刷新按钮</td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-24"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                _region();
+                $('.date-picker').datepicker({
+                    autoclose: true,
+                    todayHighlight: true,
+                    language: 'zh-CN'
+                });
+                $('.scrollable').each(function () {
+                    var $this = $(this);
+                    $(this).ace_scroll({
+                        size: $this.data('height') || 100
+                    });
+                });
+                $('#pic_url').ace_file_input({
+                    no_file: '暂无...',
+                    btn_choose: '请选择',
+                    btn_change: '更改',
+                    droppable: false,
+                    onchange: null,
+                    thumbnail: false, 
+                    whitelist: 'gif|png|jpg|jpeg'
+                });
+                
+                $(document).on('click', '.del-yyspan', function (e) {
+                    var t = $(this);
+                    if (!confirm("确定删除？")) {
+                        return false;
+                    }
+                    t.parent().remove();
+                });
+                
+                //标准通话流程内容
+                dynamicLoading('loadservice.html', "user_id={|$customer['user_id']|}", "yes", "GET");
+                //通话记录列表
+                dynamicLoading('loadcallrecord.html', "user_id={|$customer['user_id']|}", "yes", "GET");
+                //事项列表
+                dynamicLoading('loadmatter.html', "user_id={|$customer['user_id']|}", "yes", "GET");
+                //事项列表
+                dynamicLoading('loadexpress.html', "user_id={|$customer['user_id']|}", "yes", "GET");
+            });
+            function loadmatter() {
+                dynamicLoading('loadmatter.html', "user_id={|$customer['user_id']|}", "yes", "GET");
+            }
+            function loadexpress() {
+                dynamicLoading('loadexpress.html', "user_id={|$customer['user_id']|}", "yes", "GET");
+            }
+            function loadmsglog() {
+                dynamicLoading('loadmsglog.html', "phone={|$customer['phone']|}", "yes", "GET");
+            }
+        </script>
+    </body>
+</html>

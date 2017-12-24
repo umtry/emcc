@@ -1,0 +1,36 @@
+{|include 'common/box_header.html' box_title=$box_title|}
+<form class="form-horizontal" role="form" method="post">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <input type="hidden" name="handle" value="save"/>
+                    <input type="hidden" name="mass_id" value="{|$mass_id|}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 姓名 </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="real_name" placeholder="请输入姓名" class="col-xs-10 col-sm-9" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 联系电话 </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="phone" placeholder="请输入联系电话" class="col-xs-10 col-sm-9" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-sm" onclick="javascript:parentDialog.close();">
+            <i class="ace-icon fa fa-times"></i>
+            取消
+        </button>
+        <a class="btn btn-sm btn-primary ajsubmit">
+            <i class="ace-icon fa fa-check"></i>
+            保存
+        </a>
+    </div>
+</form>

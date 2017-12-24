@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>地区列表</h1>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <div class="widget-box">
+											<div class="widget-header">
+												<h4 class="widget-title">添加地区</h4>
+											</div>
+
+											<div class="widget-body">
+												<div class="widget-main">
+                                                    <form class="form-inline" method="post">
+                                                        <input type="text" name="region_name" class="input-sm" placeholder="添加{|$region['region_type']+1|}级地区" />
+                                                        <input type="hidden" name="parent_id" value="{|$parent_id|}"/>
+                                                        <input type="hidden" name="region_type" value="{|$region['region_type']+1|}"/>
+														<button type="button" class="btn btn-info btn-xs aj-btn">提 交</button>
+													</form>
+												</div>
+											</div>
+										</div>
+                                        <div class="space-6"></div>
+                                    </div>
+                                </div>
+								<div class="row">
+									<div class="col-xs-12">
+										<table class="table table-striped table-bordered table-hover" id='area_list'>
+											<thead>
+												<tr>
+                                                    <th colspan="4">
+                                                        {|$region['region_name']|}[{|$region['region_type']+1|}级地区]&nbsp;
+                                                        {|if $region['region_id']>1|}
+                                                        {|if $region['region_type']>2|}
+                                                        <a href="list.html?region_id={|$region['parent_id']|}" title="返回上一级" class="btn btn-xs btn-danger">
+                                                            <i class="ace-icon fa fa-reply icon-only"></i> 返回上一级
+                                                        </a>
+                                                        {|/if|}
+                                                        {|/if|}
+                                                    </th>
+                                                </tr>
+											</thead>
+											<tbody>
+                                                <tr>
+                                                {|foreach($regions as $key=>$val)|}
+                                                {|if ($key>1 && $key%4==0)|}
+                                                </tr>
+                                                <tr>
+                                                {|/if|}
+												<td>
+                                                    <span class="rn_span" re_id="{|$val['region_id']|}">{|$val['region_name']|}</span>
+                                                     | 
+                                                    {|if $val['region_type']<5|}
+                                                    <a href="list.html?region_id={|$val['region_id']|}">管理</a>
+                                                    {|/if|}
+                                                    {|if $val['region_type']>3|}
+                                                    <a href="javascript:;" onclick="ajdel('{|$val[region_id]|}')">删除</a>
+                                                    {|/if|}
+                                                </td>
+                                                {|/foreach|}
+                                                </tr>
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+                $(".aj-btn").bind("click",function(){
+                    var region_name = $("input[name='region_name']").val();
+                    var parent_id = $("input[name='parent_id']").val();
+                    var region_type = $("input[name='region_type']").val();
+                    if(region_name.length == 0){
+                        alert("地区名称不能为空");
+                        return false;
+                    }
+                    $.post("ajadd.html",{region_name:region_name,parent_id:parent_id,region_type:region_type},function(data){
+                        if(data.status==1){
+                            $("#area_list tbody").html(data.msg);
+                        }else{
+                            alert(data.msg);
+                        }
+                    },'json');
+                });
+                
+                $(".rn_span").bind("click",function(){
+                    var region_id = $(this).attr("re_id");
+                    if($("#ajedit"+region_id).length == 0){
+                        var region_name = $(this).text();
+                        var html = "<input class='input-small' id='ajedit"+region_id+"' onblur='ajedit("+region_id+")' type='text' value='"+region_name+"'>";
+                        $(this).html(html);
+                    }
+                });
+			});
+            function ajedit(region_id){
+                var region_name = $("#ajedit"+region_id).val();
+                $.post("ajedit.html",{region_name:region_name,region_id:region_id},function(data){
+                    if(data.status==1){
+                        $(".rn_span[re_id="+region_id+"]").text(region_name);
+                    }else{
+                        alert(data.msg);
+                    }
+                },'json');
+            }
+            function ajdel(region_id){
+                $.post("ajdel.html",{region_id:region_id},function(data){
+                    if(data.status==1){
+                        $(".rn_span[re_id="+region_id+"]").parent().remove();
+                    }else{
+                        alert(data.msg);
+                    }
+                },'json');
+            }
+		</script>
+	</body>
+</html>

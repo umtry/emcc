@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>管理员列表</h1>
+						</div>
+                        
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <button class="btn btn-danger btn-sm" onclick="ssconfirm('add.html')">
+                                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>添加新管理员
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="hr hr-18 dotted hr-double"></div>
+								<div class="row">
+									<div class="col-xs-12">
+										<table class="table table-striped table-bordered table-hover">
+											<thead>
+												<tr>
+													<th>序号</th>
+                                                    <th>管理员组</th>
+													<th>管理员名称</th>
+                                                    <th>姓名</th>
+                                                    <th>通道号</th>
+                                                    <th>最后登录时间</th>
+                                                    <th>最后登录IP</th>
+                                                    <th>状态</th>
+													<th></th>
+												</tr>
+											</thead>
+
+											<tbody>
+                                                {|foreach($admin as $val)|}
+												<tr>
+													<td>{|$val['user_id']|}</td>
+                                                    <td>{|$val['group_name']|}</td>
+													<td>{|$val['user_name']|}</td>
+                                                    <td>{|$val['real_name']|}</td>
+                                                    <td>{|$val['port']|default:''|}</td>
+                                                    <td>{|$val['last_time']|dateformat|}</td>
+                                                    <td>{|$val['last_ip']|}</td>
+                                                    <td>{|$val['status']|status|}</td>
+													<td>
+														<div class="btn-group">
+															<button class="btn btn-xs btn-info" onclick="ssconfirm('edit.html?user_id={|$val[user_id]|}');">
+																<i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+															</button>
+															<button class="btn btn-xs btn-danger" onclick="ssconfirm('del.html?user_id={|$val[user_id]|}','确定删除？');">
+																<i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+															</button>
+														</div>
+													</td>
+												</tr>
+                                                {|/foreach|}
+											</tbody>
+										</table>
+									</div>
+								</div>
+
+								<div class="hr hr-18 dotted hr-double"></div>
+                                {|if $admin|}
+                                {|include 'common/page/style2.html'|}
+                                {|/if|}
+								<div class="hr hr-18 dotted hr-double"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

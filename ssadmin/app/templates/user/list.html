@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>用户列表</h1>
+						</div>
+                        
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-danger btn-sm" href="add.html">
+                                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>添加新用户
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>用户组：<select name="group_id">
+                                                                <option value="">全部</option>
+                                                                {|foreach($group as $val)|}
+                                                                <option value="{|$val['ac_id']|}" {|if $get['group_id']==$val['group_id']|}selected{|/if|}>{|$val['group_name']|}</option>
+                                                                {|/foreach|}
+                                                            </select></label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                    <label>用户名：
+                                                        <input class="input-sm input-small" type="text" name="user_name" value="{|$get['user_name']|}">
+                                                    </label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>状态：<select name="status">
+                                                                <option value="">全部</option>
+                                                                <option value="0" {|if $get['status']===0|}selected{|/if|}>禁止</option>
+                                                                <option value="1" {|if $get['status']===1|}selected{|/if|}>正常</option>
+                                                            </select></label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label><input type="submit" value="查询" class="btn btn-xs btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>用户组</th>
+                                                <th>用户名称</th>
+                                                <th>性别</th>
+                                                <th>最后登录时间</th>
+                                                <th>最后登录IP</th>
+                                                <th>状态</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {|foreach($user as $val)|}
+                                            <tr>
+                                                <td>{|$val['user_id']|}</td>
+                                                <td>{|$val['group_name']|}</td>
+                                                <td>{|$val['user_name']|}</td>
+                                                <td>{|$val['sex']|sex|}</td>
+                                                <td>{|$val['last_time']|dateformat|}</td>
+                                                <td>{|$val['last_ip']|}</td>
+                                                <td>{|$val['status']|status|}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-info" href="edit.html?user_id={|$val[user_id]|}">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+                                                        </a>
+                                                        <a class="btn btn-xs btn-danger" href="del.html?user_id={|$val[user_id]|}" onclick="return confirm('确定删除？');">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {|/foreach|}
+
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-6">
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            {|if $user|}
+                                            {|include 'common/page/style2.html'|}
+                                            {|/if|}
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

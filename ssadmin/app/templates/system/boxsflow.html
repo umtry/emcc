@@ -1,0 +1,66 @@
+{|include 'common/box_header.html' box_title=$box_title|}
+<form class="form-horizontal" role="form" method="post">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <input type="hidden" name="handle" value="save"/>
+                    <input type="hidden" name="id" value="{|$rs_data['id']|}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 序号 </label>
+                    <div class="col-sm-9">
+                        <input type="text" name="sort" value="{|$rs_data['sort']|}" placeholder="请输入序号（有小到大排列）" class="col-xs-10 col-sm-9" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 通话内容 </label>
+                    <div class="col-sm-9">
+                        <textarea class="col-xs-10 col-sm-9" name="content" placeholder="请填写通话内容">{|$rs_data['content']|}</textarea>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 状态 </label>
+                    <div class="col-sm-9">
+                        <label style='margin-right: 10px;'>
+                            <input name="status" type="radio" class="ace" value='1' {|if $rs_data['status']==1|}checked="checked"{|/if|} />
+                            <span class="lbl"> 启用 </span>
+                        </label>
+                        <label>
+                            <input name="status" type="radio" class="ace" value='2' {|if $rs_data['status']==2|}checked="checked"{|/if|} />
+                            <span class="lbl"> 禁用 </span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 回复项类型 </label>
+                    <div class="col-sm-9">
+                        <label style='margin-right: 10px;'>
+                            <input name="stype" type="radio" class="ace" value='1' {|if $rs_data['stype']==1|}checked="checked"{|/if|} />
+                            <span class="lbl"> 单选 </span>
+                        </label>
+                        <label>
+                            <input name="stype" type="radio" class="ace" value='2' {|if $rs_data['stype']==2|}checked="checked"{|/if|} />
+                            <span class="lbl"> 多选 </span>
+                        </label>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer">
+        <button class="btn btn-sm" onclick="javascript:parentDialog.close();">
+            <i class="ace-icon fa fa-times"></i>
+            取消
+        </button>
+
+        <a class="btn btn-sm btn-primary ajsubmit">
+            <i class="ace-icon fa fa-check"></i>
+            保存
+        </a>
+    </div>
+</form>

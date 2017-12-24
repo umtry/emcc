@@ -1,0 +1,21 @@
+
+    <tr>
+    {|foreach($regions as $key=>$val)|}
+    {|if ($key>1 && $key%4==0)|}
+    </tr>
+    <tr>
+    {|/if|}
+    <td>
+        {|$val['region_name']|}
+         | 
+        {|if $val['region_type']<5|}
+        <a href="list.html?region_id={|$val['region_id']|}">管理</a>
+        {|/if|}
+        {|if $val['region_type']>3|}
+        <a href="del.html?region_id={|$val['region_id']|}">删除</a>
+        {|/if|}
+    </td>
+    {|/foreach|}
+    </tr>
+
+										

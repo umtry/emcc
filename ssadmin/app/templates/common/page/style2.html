@@ -1,0 +1,22 @@
+<style>
+    .cm_page{ padding:20px 0 0 0; color:#666;text-align: right;}
+    .cm_page a{ display:inline-block; margin:0 1px; padding:2px 10px; height:24px; line-height: 18px; overflow:hidden; border:1px solid #ccc; background:#FFF; color:#666; text-decoration:none;}
+    .cm_page a:hover{ border-color:#056DAE; color:#056DAE; text-decoration:none;}
+    .cm_page a.page_cur{ border-color:#056DAE; background:#056DAE; color:#fff}
+    .cm_page a u{ display:inline-block; height:18px; text-decoration:none; cursor:pointer; overflow:hidden}
+    .cm_page a.prev_no{ color:#ccc; border-color:#ccc}
+    .cm_page a.prev_no:hover{ border-color:#ccc; color:#ccc}
+    .cm_page a.next_no{ color:#ccc; border-color:#ccc}
+    .cm_page a.next_no:hover{ border-color:#ccc; color:#ccc}
+    .cm_page .ipt{ padding:2px; border:1px solid #ccc; width:30px; vertical-align:middle}
+    .cm_page .btn{ width:45px; height:24px; cursor:pointer; vertical-align:middle}
+</style>
+<div class="cm_page">
+    <a href="{|$siteurl[ssadmin]|}/{|$_p[first]|}">第一页</a>
+    <a class="prev_btn {|if $_p[prepg]==null|}prev_no{|/if|}" href="{|if $_p[prepg]==null|}#{|else|}{|$siteurl[ssadmin]|}/{|$_p[prepg]|}{|/if|}">上一页</a>
+    {|foreach($_p[pages] as $key=>$item)|}
+    <a {|if $_p[currpage] == $item['page']|}class="page_cur"{|/if|} href="{|$siteurl['ssadmin']|}/{|$item['url']|}"><u>{|$item['page']|}</u></a>  
+    {|/foreach|}
+    <a class="next_btn {|if $_p[nextpg]==null|}next_no{|/if|}" href="{|if $_p[nextpg]==null|}#{|else|}{|$siteurl[ssadmin]|}/{|$_p[nextpg]|}{|/if|}">下一页</a>
+    <a href="{|$siteurl[ssadmin]|}/{|$_p[last]|}">最后页</a>
+</div>

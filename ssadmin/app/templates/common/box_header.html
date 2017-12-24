@@ -1,0 +1,55 @@
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<title>{|$box_title|default:'后台管理'|}</title>
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/jquery.gritter.css" />
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/ace-fonts.css" />
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/ace.min.css" />
+<!--[if lte IE 9]>
+    <link rel="stylesheet" href="{|$siteurl['assets_admin']|}/css/ace-part2.min.css" />
+<![endif]-->
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/ace-skins.min.css" />
+<link rel="stylesheet" type="text/css" href="{|$siteurl['assets_admin']|}/css/ace-rtl.min.css" />
+<!--[if lte IE 9]>
+  <link rel="stylesheet" href="{|$siteurl['assets_admin']|}/css/ace-ie.min.css" />
+<![endif]-->
+
+<!-- ace settings handler -->
+<script src="{|$siteurl['assets_admin']|}/js/ace-extra.min.js"></script>
+<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
+
+<!--[if lte IE 8]>
+<script src="{|$siteurl['assets_admin']|}/js/html5shiv.min.js"></script>
+<script src="{|$siteurl['assets_admin']|}/js/respond.min.js"></script>
+<![endif]-->
+
+<script type="text/javascript">
+    window.jQuery || document.write("<script src='{|$siteurl[assets]|}/jquery.min.js'>"+"<"+"/script>");
+</script>
+
+<script type="text/javascript">
+	if('ontouchstart' in document.documentElement) document.write("<script src='{|$siteurl[assets_admin]|}/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+</script>
+<script src="{|$siteurl[assets]|}/bootstrap.min.js"></script>
+
+<!-- page specific plugin scripts -->
+<script src="{|$siteurl['assets_admin']|}/js/jquery.dataTables.min.js"></script>
+<script src="{|$siteurl['assets_admin']|}/js/jquery.dataTables.bootstrap.js"></script>
+<script src="{|$siteurl['assets_admin']|}/js/jquery.gritter.min.js"></script>
+<!-- ace scripts -->
+<script src="{|$siteurl['assets_admin']|}/js/ace-elements.min.js"></script>
+<script src="{|$siteurl['assets_admin']|}/js/ace.min.js"></script>
+<script src="{|$siteurl[assets]|}/common.js"></script>
+{|if $ue == 1|}
+<script src="{|$siteurl[assets]|}/ueditor/ueditor.config.js"></script>
+<script src="{|$siteurl[assets]|}/ueditor/ueditor.all.min.js"></script>
+{|/if|}
+
+{|if $datepicker == 1|}
+<link rel="stylesheet" href="{|$siteurl['assets']|}/datepicker.css" />
+<script src="{|$siteurl['assets']|}/datepicker.min.js"></script>
+<script src="{|$siteurl['assets']|}/datepicker.zh-CN.js"></script>
+{|/if|}

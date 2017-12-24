@@ -1,0 +1,38 @@
+{|if $services|}
+<form class="form-horizontal" action='loadservice.html' role="form" method="post">
+{|foreach($services as $val)|}
+<div class="well">
+    <h4 class="blue">{|$val['sort']|}.</h4>
+    <p>{|$val['content']|}</p>
+    {|if $val['stitles']|}
+    <p>
+        {|foreach($val['stitles'] as $v)|}
+        <label>
+            {|if $val['stype']==1|}
+            <input name="stitle_ids[]" type="radio" class="ace" value='{|$v[id]|}' {|if in_array($v[id],$services_arr)|}checked="checked"{|/if|} />
+            {|/if|}
+            {|if $val['stype']==2|}
+            <input name="stitle_ids[]" type="checkbox" class="ace" value='{|$v[id]|}' {|if in_array($v[id],$services_arr)|}checked="checked"{|/if|} />
+            {|/if|}
+            <span class="lbl"> {|$v[rs_title]|} </span>
+        </label>
+        {|/foreach|}
+    </p>
+    {|/if|}
+</div>
+{|/foreach|}
+<div class="form-group">
+    <label class="col-sm-3 control-label no-padding-right"> 备注 </label>
+    <div class="col-sm-9">
+        <textarea class="col-xs-10 col-sm-9 input-sm" name="remark" placeholder="访问备注">{|$remark|}</textarea>
+    </div>
+</div>
+<input type='hidden' name='handle' value='save'/>
+<input type='hidden' name='user_id' value='{|$user_id|}'/>
+<a class="btn btn-danger btn-block ajsubmit" href="javascript:;">保存结果</a>
+</form>
+{|else|}
+<div class="alert">
+    暂无标准通话流程内容
+</div>
+{|/if|}

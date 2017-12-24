@@ -1,0 +1,3 @@
+<span>{$_p[currpage]}/{$_p[pagenum]}页</span>
+<a class="prev_btn {if $_p[prepg] == null}prev_no{/if}" href="{if $_p[prepg] == null}javascript:;{else}javascript:search_shop_biaozhu(5,{$_p[currpage]},2){/if}">上一页</a>
+<a class="next_btn {if $_p[nextpg] == null}next_no{/if}" href="{if $_p[nextpg] == null}javascript:;{else}javascript:search_shop_biaozhu(5,{$_p[currpage]},1){/if}">下一页</a>

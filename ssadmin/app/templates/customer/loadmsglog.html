@@ -1,0 +1,16 @@
+{|if $msglogs|}
+{|foreach($msglogs as $key=>$val)|}
+<tr>
+    <td>{|$val['add_time']|dateformat|}</td>
+    <td>{|$val['msg']|}</td>
+    <td>
+        {|if $val['status']==2|}<span class="label label-danger">失败</span>{|/if|}
+        {|if $val['status']==1|}<span class="label label-success">成功</span>{|/if|}
+    </td>
+</tr>
+{|/foreach|}
+{|else|}
+<tr>
+    <td colspan="3">暂无短信记录数据</td>
+</tr>
+{|/if|}

@@ -1,0 +1,77 @@
+<script type="text/javascript">
+    try {
+        ace.settings.check('main-container', 'fixed');
+    } catch (e) {
+    }
+</script>
+<!-- #section:basics/sidebar -->
+<div id="sidebar" class="sidebar responsive">
+    <script type="text/javascript">
+        try {
+            ace.settings.check('sidebar', 'fixed');
+        } catch (e) {
+        }
+    </script>
+
+    <ul class="nav nav-list">
+        <li class="">
+            <a href="/ssadmin/">
+                <i class="menu-icon fa fa-tachometer"></i>
+                <span class="menu-text"> 控制面板 </span>
+            </a>
+            <b class="arrow"></b>
+        </li>
+        {|foreach($sidebar_sysnav as $val)|}
+        {|$isshow=0|}
+        {|foreach($val['licenses'] as $k=>$v)|}
+        {|if in_array($v['license_id'],$ld)|}
+        {|$isshow=1|}
+        {|/if|}
+        {|/foreach|}
+
+        {|if $isshow==1|}
+        {|if in_array($siderbar_license_id,$val['licid_arr'])|}
+        {|$breadcrumbs_sysnav_name=$val['sysnav_name']|}
+        {|/if|}
+        <li class="{|if in_array($siderbar_license_id,$val['licid_arr'])|}active open{|/if|}">
+            <a href="#" class="dropdown-toggle">
+                <i class="menu-icon fa fa-list"></i>
+                <span class="menu-text"> {|$val['sysnav_name']|} </span>
+                <b class="arrow fa fa-angle-down"></b>
+            </a>
+            <b class="arrow"></b>
+            <ul class="submenu">
+                {|foreach($val['licenses'] as $k=>$v)|}
+
+                {|if $siderbar_license_id==$v['license_id']|}
+                {|$breadcrumbs_license_name=$v['license_name']|}
+                {|/if|}
+
+                {|if in_array($v['license_id'],$ld)|}
+                <li class="{|if $siderbar_license_id==$v['license_id']|}active{|/if|}">
+                    <a href="{|$v['license_url']|compurl|}">
+                        <i class="menu-icon fa fa-caret-right"></i>
+                        {|$v['license_name']|}
+                    </a>
+                    <b class="arrow"></b>
+                </li>
+                {|/if|}
+                {|/foreach|}
+            </ul>
+        </li>
+        {|/if|}
+        {|/foreach|}
+    </ul><!-- /.nav-list -->
+    <!-- #section:basics/sidebar.layout.minimize -->
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+    <!-- /section:basics/sidebar.layout.minimize -->
+    <script type="text/javascript">
+        try {
+            ace.settings.check('sidebar', 'collapsed');
+        } catch (e) {
+        }
+    </script>
+</div>
+<!-- /section:basics/sidebar -->

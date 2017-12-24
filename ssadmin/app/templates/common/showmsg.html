@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+        {|if $url|}
+        <meta http-equiv="refresh" content="{|$second|};URL={|$url|}" />
+        {|/if|}
+	</head>
+
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			{|include 'common/sidebar.html'|}
+			<div class="main-content">
+				<!-- #section:basics/content.breadcrumbs -->
+				<div class="breadcrumbs" id="breadcrumbs">
+					<script type="text/javascript">
+						try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+					</script>
+
+					<ul class="breadcrumb">
+						<li>
+							<i class="ace-icon fa fa-home home-icon"></i>
+							<a href="#">主页</a>
+						</li>
+
+						<li>
+							<a href="#">信息提示</a>
+						</li>
+						<li class="active">{|if $state==1|}正确{|elseif $state==2|}错误{|else|}警告{|/if|}</li>
+					</ul><!-- /.breadcrumb -->
+				</div>
+
+				<!-- /section:basics/content.breadcrumbs -->
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="row">
+							<div class="col-xs-12">
+								<!-- PAGE CONTENT BEGINS -->
+
+								<!-- #section:pages/error -->
+								<div class="error-container">
+									<div class="well">
+										<h1 class="grey lighter smaller">
+											<span class="blue bigger-125">
+												<i class="ace-icon fa fa-info-circle"></i>
+											</span>
+											信息提示 
+                                            {|if $state==1|}
+                                            <span class="label label-success arrowed">成功</span>
+                                            {|elseif $state==2|}
+                                            <span class="label label-danger arrowed-in">错误</span>
+                                            {|else|}
+                                            <span class="label label-warning">
+												<i class="ace-icon fa fa-exclamation-triangle bigger-120"></i>
+												警告
+											</span>
+                                            {|/if|}
+                                            
+										</h1>
+
+										<hr />
+										<h3 class="lighter smaller">
+											{|$msg|}
+										</h3>
+
+										<div class="space"></div>
+                                        {|if $second|}
+										<div>
+											<h4 class="lighter smaller">系统会在{|$second|}秒内跳转：</h4>
+											<ul class="list-unstyled spaced inline bigger-110 margin-15">
+												<li>
+													<i class="ace-icon fa fa-hand-o-right blue"></i>
+                                                    {|if $url != ''|}
+													<a href="{|$url|}">如果没有跳转请点击这里！</a>
+                                                    {|else|}
+                                                    <a href="javascript:history.back(-1)">如果没有跳转请点击这里！</a>
+                                                    {|/if|}
+												</li>
+											</ul>
+										</div>
+                                        {|/if|}
+										<hr />
+										<div class="space"></div>
+
+										<div class="center">
+											<a href="javascript:history.back(-1)" class="btn btn-grey">
+												<i class="ace-icon fa fa-arrow-left"></i>
+												返回上一页
+											</a>
+
+											<a href="{|$ssadmin|}" class="btn btn-primary">
+												<i class="ace-icon fa fa-tachometer"></i>
+												返回主页
+											</a>
+										</div>
+									</div>
+								</div>
+
+								<!-- /section:pages/error -->
+
+								<!-- PAGE CONTENT ENDS -->
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content-area -->
+				</div><!-- /.page-content -->
+			</div><!-- /.main-content -->
+
+			{|include 'common/footer.html'|}
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+		
+		<!-- inline scripts related to this page -->
+		<script type="text/javascript">
+			jQuery(function($) {
+				{|if $url == '' && $second|}
+                window.setTimeout(function(){ 
+                    window.history.back(-1);
+                }, {|$second*1000|});
+                {|/if|}
+			});
+		</script>
+	</body>
+</html>
+

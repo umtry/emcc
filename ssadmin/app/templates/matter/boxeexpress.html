@@ -1,0 +1,60 @@
+{|include 'common/box_header.html' box_title=$box_title|}
+<form class="form-horizontal" role="form" method="post">
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12">
+                <div class="form-group">
+                    <input type="hidden" name="handle" value="save"/>
+                    <input type="hidden" name="ex_id" value="{|$express['ex_id']|}"/>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 支付状态 </label>
+                    <div class="col-sm-9">
+                        {|foreach($pay_status as $key=>$val)|}
+                        <label style="margin-right: 10px;">
+                            <input name="pay_status" value="{|$key|}" {|if $express['pay_status'] == $key|}checked="checked"{|/if|} type="radio" class="ace"/>
+                            <span class="lbl"> {|$val|} </span>
+                        </label>
+                        {|/foreach|}
+                    </div>
+                </div>
+                {|if $express['ex_type']==1|}
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 发件状态 </label>
+                    <div class="col-sm-9">
+                        {|foreach($expf_status as $key=>$val)|}
+                        <label style="margin-right: 10px;">
+                            <input name="status" value="{|$key|}" {|if $express['status'] == $key|}checked="checked"{|/if|} type="radio" class="ace"/>
+                            <span class="lbl"> {|$val|} </span>
+                        </label>
+                        {|/foreach|}
+                    </div>
+                </div>
+                {|/if|}
+                {|if $express['ex_type']==2|}
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right"><i class="ace-icon fa fa-asterisk red2"></i> 收件状态 </label>
+                    <div class="col-sm-9">
+                        {|foreach($exps_status as $key=>$val)|}
+                        <label style="margin-right: 10px;">
+                            <input name="status" value="{|$key|}" {|if $express['status'] == $key|}checked="checked"{|/if|} type="radio" class="ace"/>
+                            <span class="lbl"> {|$val|} </span>
+                        </label>
+                        {|/foreach|}
+                    </div>
+                </div>
+                {|/if|}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-sm" onclick="parentDialog.close();">
+            <i class="ace-icon fa fa-times"></i>
+            取消
+        </button>
+        <a class="btn btn-sm btn-primary ajsubmit">
+            <i class="ace-icon fa fa-check"></i>
+            保存
+        </a>
+    </div>
+</form>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>服务流程列表</h1>
+						</div>
+                        
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-danger btn-sm ajdialog" dataurl="boxsflow.html" datatitle="添加新服务流程" href="javascript:;">
+                                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>
+                                            添加新服务流程
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <label>状态：
+                                                    <select name="status">
+                                                        <option value="">全部</option>
+                                                        <option value="1" {|if $get['status']===1|}selected{|/if|}>启用</option>
+                                                        <option value="2" {|if $get['status']===2|}selected{|/if|}>禁用</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <label><input type="submit" value="查询" class="btn btn-xs btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>排序</th>
+                                                <th>内容</th>
+                                                <th>添加时间</th>
+                                                <th>状态</th>
+                                                <th>最近编辑</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {|foreach($sflow as $val)|}
+                                            <tr>
+                                                <td>{|$val['sort']|}</td>
+                                                <td>{|$val['content']|}</td>
+                                                <td>{|$val['add_time']|dateformat|}</td>
+                                                <td>
+                                                    {|if $val['status']==1|}<span class="label label-success">启用</span>{|/if|}
+                                                    {|if $val['status']==2|}<span class="label label-danger">禁用</span>{|/if|}
+                                                </td>
+                                                <td>{|$val['admin_name']|}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-info ajdialog" href="javascript:;" title="编辑服务流程内容" dataurl="boxsflow.html?id={|$val[id]|}" datatitle="编辑服务流程内容">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+                                                        </a>
+                                                    </div>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-purple ajdialog" href="javascript:;" title="编辑回复" dataurl="boxsflowrs.html?id={|$val[id]|}" datatitle="编辑回复">
+                                                            <i class="ace-icon fa fa-hdd-o bigger-120"></i>回复项
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {|/foreach|}
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-6">
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            {|if $sflow|}
+                                            {|include 'common/page/style2.html'|}
+                                            {|/if|}
+                                        </div>
+                                    </div>
+                                </div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+
+    <body class="login-layout" id="login" onload="loadFunc()">
+        <div class="main-container">
+            <div class="main-content">
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <div class="login-container">
+                            <div class="center">
+                                <h1>
+                                    <i class="ace-icon fa fa-leaf green"></i>
+                                    <span class="red">Sscms</span>
+                                    <span class="white" id="id-text2">后台管理系统</span>
+                                </h1>
+                                <h4 class="blue" id="id-company-text">&copy; Susoft</h4>
+                            </div>
+
+                            <div class="space-6"></div>
+
+                            <div class="position-relative">
+                                <div id="login-box" class="login-box visible widget-box no-border">
+                                    <div class="widget-body">
+                                        <div class="widget-main">
+                                            <h4 class="header blue lighter bigger">
+                                                <i class="ace-icon fa fa-coffee green"></i>
+                                                请填写登录信息
+                                            </h4>
+
+                                            <div class="space-6"></div>
+
+                                            <form method="post">
+                                                <fieldset>
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="text" name="user_name" class="form-control" placeholder="账号" />
+                                                            <i class="ace-icon fa fa-user"></i>
+                                                        </span>
+                                                    </label>
+
+                                                    <label class="block clearfix">
+                                                        <span class="block input-icon input-icon-right">
+                                                            <input type="password" name="user_pass" class="form-control" placeholder="密码" />
+                                                            <i class="ace-icon fa fa-lock"></i>
+                                                        </span>
+                                                    </label>
+                                                    <div class="space"></div>
+                                                    <div class="clearfix">
+                                                        <button type="button" class="width-35 pull-right btn btn-sm btn-primary ajsubmit">
+                                                            <i class="ace-icon fa fa-key"></i>
+                                                            <span class="bigger-110">登录</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="space-4"></div>
+                                                </fieldset>
+                                            </form>
+                                        </div><!-- /.widget-main -->
+                                    </div><!-- /.widget-body -->
+                                </div><!-- /.login-box -->
+                            </div><!-- /.position-relative -->
+                            <div class="navbar-fixed-top align-right">
+                                <br />
+                                &nbsp;
+                                <a id="btn-login-dark" href="#">黑色</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-blur" href="#">蓝色</a>
+                                &nbsp;
+                                <span class="blue">/</span>
+                                &nbsp;
+                                <a id="btn-login-light" href="#">亮色</a>
+                                &nbsp; &nbsp; &nbsp;
+                            </div>
+                        </div>
+                    </div><!-- /.col -->
+                </div><!-- /.row -->
+            </div><!-- /.main-content -->
+        </div><!-- /.main-container -->
+
+        <!-- inline scripts related to this page -->
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('#btn-login-dark').on('click', function (e) {
+                    $('body').attr('class', 'login-layout');
+                    $('#id-text2').attr('class', 'white');
+                    $('#id-company-text').attr('class', 'blue');
+
+                    e.preventDefault();
+                });
+                $('#btn-login-light').on('click', function (e) {
+                    $('body').attr('class', 'login-layout light-login');
+                    $('#id-text2').attr('class', 'grey');
+                    $('#id-company-text').attr('class', 'blue');
+
+                    e.preventDefault();
+                });
+                $('#btn-login-blur').on('click', function (e) {
+                    $('body').attr('class', 'login-layout blur-login');
+                    $('#id-text2').attr('class', 'white');
+                    $('#id-company-text').attr('class', 'light-blue');
+
+                    e.preventDefault();
+                });
+
+            });
+
+
+
+            var dogNotPresent = false;
+//Callback function, if the dog has been removed the function will be called.
+            function removeDog()
+            {
+                reportStatus(7);
+            }
+
+//Callback function, if the dog still exists the function will be called.
+            function insertDog()
+            {
+                window.location.href = "Login.php";
+            }
+
+            function checkDog()
+            {
+                var stat = "";
+                var authCode = "";
+                var scope = "<dogscope/>\n";
+
+                //Get Auth Code
+                authCode = getAuthCode();
+
+                //Get object
+                objAuth = getAuthObject();
+
+                //Open
+                stat = objAuth.Open(scope, authCode);
+                if (0 != stat)
+                {
+                    dogNotPresent = true;
+                    reportStatus(stat);
+                } else
+                {
+                    if (dogNotPresent == true)
+                    {
+                        dogNotPresent = false;
+                        window.location.href = "Login.php";
+                    }
+                }
+
+                //Execute the check again after 2 seconds
+                setTimeout(checkDog, 2000);
+            }
+
+//Load callback functions, insertDog() and removeDog()
+            function loadFunc()
+            {
+                var objAuth;
+
+                //Get object
+                objAuth = getAuthObject();
+
+                if (navigator.userAgent.indexOf("Window") > 0)
+                {
+                    //Windows
+                    if (window.ActiveXObject || "ActiveXObject" in window)  //IE
+                    {
+                        objAuth.SetCheckDogCallBack("insertDog", "removeDog");
+                    } else
+                    {
+                        objAuth.SetCheckDogCallBack("insertDog", "removeDog");
+                        objAuth.InsertFunc = insertDog;
+                        objAuth.RemoveFunc = removeDog;
+                    }
+                } else if (navigator.userAgent.indexOf("Mac") > 0)
+                {
+                    setTimeout(checkDog, 1000);
+                } else if (navigator.userAgent.indexOf("Linux") > 0)
+                {
+                    setTimeout(checkDog, 1000);
+                } else
+                {
+                    ;
+                }
+            }
+
+
+            function validateLogin()
+            {
+                var challenge = "";
+                var stat = "";
+                var objAuth = "";
+                var vmData = "";
+                var dogID = "";
+                var digest = "";
+                var scope = "<dogscope/>\n";
+                var authCode = "";
+                var name = document.getElementById("username").value;
+                var pwd = document.getElementById("password").value;
+
+                document.getElementById("password").value = "";
+
+                if (pwd.length < 6 || pwd.length > 16)
+                {
+                    reportStatus(700);
+                    return false;
+                }
+
+                if (window.ActiveXObject || "ActiveXObject" in window) //IE
+                {
+                    //Add onfocus event
+                    var obj = document.getElementById("password");
+                    if (Object.hasOwnProperty.call(window, "ActiveXObject") && !window.ActiveXObject)
+                    {	//Browser is IE 11
+                        obj.addEventListener("onfocus", clearInfo, false);
+                    } else
+                    {
+                        obj.attachEvent("onfocus", clearInfo);
+                    }
+                }
+
+                //Get Object
+                objAuth = getAuthObject();
+
+                //Get Auth Code
+                authCode = getAuthCode();
+
+                //Open the dog
+                stat = objAuth.Open(scope, authCode);
+                if (0 != stat)
+                {
+                    reportStatus(stat);
+                    return false;
+                }
+
+                //Verify the password
+                stat = objAuth.VerifyUserPin(pwd);
+                if (0 != stat)
+                {
+                    objAuth.Close();
+                    reportStatus(stat);
+                    return false;
+                }
+
+                //Get the DogID
+                stat = objAuth.GetDogID();
+                if (0 != stat)
+                {
+                    objAuth.Close();
+                    reportStatus(stat);
+                    return false;
+                }
+
+                //Save the DogID
+                dogID = objAuth.DogIdStr;
+                document.getElementById("dogid").value = dogID;
+
+                //Get challenge string
+                challenge = getChallenge();
+                if (-1 != challenge.indexOf("error"))
+                {
+                    if (-1 != challenge.indexOf("undefined function dog_auth_get_challenge"))
+                    {
+                        reportStatus(1010);
+                    } else
+                    {
+                        reportStatus(1002);
+                    }
+                    objAuth.Close();
+                    return false;
+                } else if (-1 != challenge.indexOf("session_start"))
+                {
+                    if (-1 != challenge.indexOf("No such file or directory"))
+                    {
+                        reportStatus(1011);
+                    } else
+                    {
+                        reportStatus(1002);
+                    }
+                    objAuth.Close();
+                    return false;
+                }
+
+                //Generate digest
+                stat = objAuth.GetDigest(challenge);
+                if (0 != stat)
+                {
+                    objAuth.Close();
+                    reportStatus(stat);
+                    return false;
+                }
+
+                digest = objAuth.DigestStr;
+                document.getElementById("response").value = digest;
+
+                //Do authenticate
+                stat = doAuth(dogID, digest);
+                if (0 != stat)
+                {
+                    objAuth.Close();
+                    reportStatus(stat);
+                    return false;
+                }
+
+                objAuth.Close();
+                return true;
+            }
+
+
+
+
+            try
+            {
+                var stat = 0;
+                var objAuth = "";
+                var authCode = "";
+                var scope = "<dogscope/>\n";
+
+                embedTag();
+
+                //Get object
+                objAuth = getAuthObject();
+
+                //Get Auth Code
+                authCode = getAuthCode();
+
+                //Open the dog
+                stat = objAuth.Open(scope, authCode);
+                if (0 != stat)
+                {
+                    reportStatus(stat);
+                    throw ("Open Dog Error!");
+                }
+
+                //Get username from the dog
+                stat = objAuth.GetUserName();
+                if (0 != stat)
+                {
+                    objAuth.Close();
+                    reportStatus(stat);
+                    throw ("Get Dog Username Error!");
+                }
+                document.getElementById("username").value = objAuth.UserNameStr;
+                objAuth.Close();
+            } catch (e)
+            {
+            }
+        </script>
+    </body>
+</html>

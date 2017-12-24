@@ -1,0 +1,32 @@
+{|if $matters|}
+{|foreach($matters as $key=>$val)|}
+<tr>
+    <td>{|$val['add_time']|dateformat:'Y-m-d H:i'|}</td>
+    <td>{|$val['stf_name']|}（{|$val['real_name']|}）</td>
+    <td>{|$val['intention_name']|}</td>
+    <td>
+        ￥{|$val['price']|} /
+        {|$pay_status[$val['pay_status']]|}
+    </td>
+    <td>
+        <span class="label 
+              {|if $val['status']==1|}label-warning{|/if|} 
+              {|if $val['status']==2|}label-info{|/if|} 
+              {|if $val['status']==3|}label-danger{|/if|} 
+              {|if $val['status']==4|}label-success{|/if|} ">
+            {|$matter_status[$val['status']]|}
+        </span>
+    </td>
+    <td>
+        <a class="btn btn-xs btn-info ajdialog" dataurl="boxematter.html?id={|$val['id']|}" datatitle="编辑事项" datah="500" href="javascript:;" title="编辑">
+            <i class="ace-icon fa fa-pencil bigger-120"></i>
+        </a>
+    </td>
+</tr>
+{|/foreach|}
+{|else|}
+<tr>
+    <td colspan="6">暂无事项数据</td>
+</tr>
+{|/if|}
+

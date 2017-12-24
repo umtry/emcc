@@ -1,0 +1,72 @@
+<div class="footer">
+    <div class="footer-inner">
+        <div class="footer-content">
+            <span class="bigger-120">
+                <span class="blue bolder">呼叫中心</span>
+                Application &copy; 2013-2016
+            </span>
+        </div>
+    </div>
+</div>
+<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+    <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+</a>
+
+{|if $groupid==34 or $port>0|}
+<script type="text/javascript">
+    WEB_SOCKET_SWF_LOCATION = "{|$siteurl['assets']|}/WebSocketMain.swf";
+    WEB_SOCKET_DEBUG = true;
+
+    ws = new WebSocket("ws://{|$call_server_ip|}:9101");
+    ws.onopen = function(){
+        console.log("握手成功");
+        var port = '{|$port|}';
+        {|if $groupid == 34|}
+        var send_type = '1';
+        {|else|}
+        var send_type = '1';
+        {|/if|}
+        var user_id = '{|$userid|}';
+        ws.send(send_type + ':' + user_id + ':' + port);
+        console.log("发送数据：" + send_type + ':' + user_id + ':' + port);
+    };
+    ws.onmessage = function(e){
+        console.log("返回数据：" + e.data);
+        var re_data = e.data;
+        var re_data_arr = re_data.split(':');
+        if (re_data_arr[0] == 1) {//弹窗
+            dynamicLoading('/ssadmin/customer/checkcustomer.html', 'phone='+re_data_arr[1], "yes", "GET");
+        }
+        if (re_data_arr[0] == 2) {//记录
+            var logstr = re_data_arr[1];
+            var logarr = logstr.split(',');
+            var params = "phone=" + logarr[0] + "&call_type=" + logarr[4] + "&answer_status=" + logarr[5] + "&call_time=" + logarr[1] + "&call_start=" + logarr[2] + "&call_end=" + logarr[3] + "&recording_address=" + logarr[6];
+            dynamicLoading('/ssadmin/ajax/rephnu.html', params, "yes", "GET");
+        }
+
+    };
+    ws.onclose = function () {
+        console.log("连接关闭，定时重连");
+        //connect();
+    };
+    ws.onerror = function () {
+        console.log("出现错误");
+    };
+
+    $(document).on('click', '.onlineCallBtn', function () {
+        var t = $(this);
+        var html = t.html();
+        var html_new = '<i class="ace-icon fa fa-phone bigger-110"></i>呼叫中...';
+        t.html(html_new);
+        t.removeClass('onlineCallBtn');
+        var pn = t.parent().prev().val();
+        if(pn==''){
+            alert('请填写手机号');
+        }
+        //t.addClass('onlineCallBtn');
+        var msg = "3:" + pn;
+        ws.send(msg);
+        console.log("发送数据:" + msg);
+    });
+</script>
+{|/if|}

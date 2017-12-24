@@ -1,0 +1,21 @@
+{|if $callrecords|}
+{|foreach($callrecords as $key=>$val)|}
+<tr>
+    <td>
+        {|if $val['call_type']==1|}<span class="label label-pink arrowed-right">呼入</span>{|/if|}
+        {|if $val['call_type']==2|}<span class="label label-purple arrowed">呼出</span>{|/if|}
+        {|$val['call_time']|dateformat|}
+    </td>
+    <td>
+        {|if $val['answer_status']==1|}<span class="label label-danger">未接听</span>{|/if|}
+        {|if $val['answer_status']==2|}<span class="label label-success">已接听</span>{|/if|}
+    </td>
+    <td>{|$val['admin_name']|}</td>
+    <td>{|if $val['answer_status']==2|}<a class='ajdialog' dataurl="boxjplayer.html?url={|$val['recording_address']|}&title={|$val['admin_name']|}" dataw="420" datah="111" datatitle="试听" href="javascript:;">试听</a>{|/if|}</td>
+</tr>
+{|/foreach|}
+{|else|}
+<tr>
+    <td colspan="4">暂无通话记录数据</td>
+</tr>
+{|/if|}

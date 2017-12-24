@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>权限资源列表</h1>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-danger btn-sm" href="sourceadd.html">
+                                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>添加
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>所属栏目：<select name="sysnav_id">
+                                                                <option value="">全部</option>
+                                                                {|foreach($sysnav as $val)|}
+                                                                <option value="{|$val['sysnav_id']|}" {|if $get['sysnav_id']==$val['sysnav_id']|}selected{|/if|}>{|$val['sysnav_name']|}</option>
+                                                                {|/foreach|}
+                                                            </select></label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                    <label>权限名称：
+                                                        <input class="input-sm" type="text" name="license_name" value="{|$get['license_name']|}">
+                                                    </label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label><input type="submit" value="查询" class="btn btn-xs btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>所属栏目</th>
+                                                <th>权限名称</th>
+                                                <th>权限描述</th>
+                                                <th>排序</th>
+                                                <th>状态</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {|foreach($license as $val)|}
+                                            <tr>
+                                                <td>{|$val['license_id']|}</td>
+                                                <td>{|$val['sysnav_name']|}</td>
+                                                <td>{|$val['license_name']|}</td>
+                                                <td>{|$val['content']|}</td>
+                                                <td>{|$val['sort']|}</td>
+                                                <td>{|$val['status']|status|}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-info" href="sourceedit.html?license_id={|$val[license_id]|}">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+                                                        </a>
+                                                        <a class="btn btn-xs btn-danger" href="sourcedel.html?license_id={|$val[license_id]|}" onclick="return confirm('确定删除？');">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {|/foreach|}
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-6">
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            {|if $license|}
+                                            {|include 'common/page/style2.html'|}
+                                            {|/if|}
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,49 @@
+{|if $expresses|}
+{|foreach($expresses as $key=>$val)|}
+<tr>
+    <td>{|$val['add_time']|dateformat:'Y-m-d H:i'|}</td>
+    <td>{|if $val['ex_type']==1|}代发{|/if|}{|if $val['ex_type']==2|}代收{|/if|}</td>
+    <td>{|$val['ex_number']|}</td>
+    <td>
+        ￥{|$val['price']|} /
+        {|$pay_status[$val['pay_status']]|}
+        {|if $val['pay_status']==2|}
+        <br>
+        <span class="label">{|$val['pay_time']|dateformat|}</span>
+        {|/if|}
+    </td>
+    <td>
+        <span class="label 
+              {|if $val['status']==1|}label-danger{|/if|} 
+              {|if $val['status']==2|}label-success{|/if|} ">
+            {|if $val['ex_type']==1|}
+            {|$expf_status[$val['status']]|}
+            {|/if|}
+            {|if $val['ex_type']==2|}
+            {|$exps_status[$val['status']]|}
+            {|/if|}
+        </span>
+        {|if $val['status']==2|}
+        <br>
+        <span class="label">{|$val['comp_time']|dateformat|}</span>
+        {|/if|}
+    </td>
+    <td>
+        <a class="btn btn-xs btn-info ajdialog" dataurl="boxeexpress.html?ex_id={|$val['ex_id']|}" datatitle="编辑收发件" datah="500" href="javascript:;" title="编辑">
+            <i class="ace-icon fa fa-pencil bigger-120"></i>
+        </a>
+        {|if $val['status']==1|}
+        <a class="btn btn-xs btn-warning ajlink" dataurl="ajstatus.html?ex_id={|$val['ex_id']|}" href="javascript:;">
+            {|if $val['ex_type']==1|}已发送{|/if|}
+            {|if $val['ex_type']==2|}已领取{|/if|}
+        </a>
+        {|/if|}
+    </td>
+</tr>
+{|/foreach|}
+{|else|}
+<tr>
+    <td colspan="6">暂无收发件数据</td>
+</tr>
+{|/if|}
+

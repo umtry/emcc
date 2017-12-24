@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html' datepicker=1|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>群发信息管理</h1>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-danger btn-sm ajdialog" dataw="900" datah="500" dataurl="boxmassmassage.html" datatitle="新增群发内容" href="javascript:;">
+                                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>
+                                            新增群发内容
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-6 col-xs-6">
+                                                <label>发送类型：
+                                                    <select name="type" class="form-control">
+                                                        <option value="">全部</option>
+                                                        <option value="1" {|if $get['type']==1|}selected{|/if|}>语音信息</option>
+                                                        <option value="2" {|if $get['type']==2|}selected{|/if|}>短信</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <label>状态：
+                                                    <select name="status" class="form-control">
+                                                        <option value="">全部</option>
+                                                        <option value="1" {|if $get['status']==1|}selected{|/if|}>配置中</option>
+                                                        <option value="2" {|if $get['status']==2|}selected{|/if|}>待发送</option>
+                                                        <option value="3" {|if $get['status']==3|}selected{|/if|}>发送完毕</option>
+                                                        <option value="4" {|if $get['status']==4|}selected{|/if|}>禁止发送</option>
+                                                    </select>
+                                                </label>
+                                            </div>
+                                            <div class="col-sm-6 col-xs-6">
+                                                <label><input type="submit" value=" 查 询 " class="btn btn-sm btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>发送类型</th>
+                                                <th>发送内容</th>
+                                                <th>状态</th>
+                                                <th>添加时间</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {|if $massmassage|}
+                                            {|foreach($massmassage as $val)|}
+                                            <tr>
+                                                <td>{|$val['mass_id']|}</td>
+                                                <td>
+                                                    {|if $val['type']==1|}语音信息{|/if|}
+                                                    {|if $val['type']==2|}短信{|/if|}
+                                                </td>
+                                                <td>{|$val['content']|}</td>
+                                                <td>
+                                                    {|if $val['status']==1|}配置中{|/if|}
+                                                    {|if $val['status']==2|}待发送{|/if|}
+                                                    {|if $val['status']==3|}发送完毕{|/if|}
+                                                    {|if $val['status']==4|}禁用{|/if|}
+                                                </td>
+                                                <td>{|$val['add_time']|dateformat|}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        {|if $val['status']==1|}
+                                                        <a class="btn btn-xs btn-pink ajlink" dataurl='send.html' data-param="mass_id={|$val['mass_id']|}&type={|$val['type']|}" href="javascript:;" title="发送">
+                                                            <i class="ace-icon fa fa-paper-plane bigger-120"></i>发送
+                                                        </a>
+                                                        {|/if|}
+                                                        <a class="btn btn-xs btn-info ajdialog" dataw="900" datah="500" dataurl="boxmassmassage.html?mass_id={|$val['mass_id']|}" datatitle="编辑群发内容" href="javascript:;">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>群发内容
+                                                        </a>
+                                                        <a class="btn btn-xs btn-success ajdialog" dataw="900" datah="500" dataurl="boxmassuser.html?mass_id={|$val['mass_id']|}" datatitle="群发用户查看" href="javascript:;">
+                                                            <i class="ace-icon fa fa-users bigger-120"></i>群发用户
+                                                        </a>
+                                                        {|if $val['status']==1 or $val['status']==2|}
+                                                        <a class="btn btn-xs btn-danger ajlink" dataurl='delmassmsg.html' data-param="mass_id={|$val['mass_id']|}" href="javascript:;" title="删除" linktype='del'>
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                                                        </a>
+                                                        {|/if|}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {|/foreach|}
+                                            {|/if|}
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-6">
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            {|if $massmassage|}
+                                            {|include 'common/page/style2.html'|}
+                                            {|/if|}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+                $('.date-picker').datepicker({
+                    autoclose: true,
+                    todayHighlight: true,
+                    language: 'zh-CN'
+                });
+            });
+            function wlreload() {
+                window.location.reload();
+            }
+        </script>
+    </body>
+</html>

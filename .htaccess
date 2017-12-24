@@ -1,0 +1,6 @@
+RewriteEngine   on
+
+RewriteCond %{REQUEST_FILENAME}       !-d
+RewriteCond %{REQUEST_FILENAME}       !-f
+RewriteCond   %{THE_REQUEST} !^(.*)/assets(.*)$ [NC]
+RewriteRule   ^(.*)$ index.php/Controller/$1 [L]

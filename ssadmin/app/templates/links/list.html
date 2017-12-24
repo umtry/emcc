@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>友情链接列表</h1>
+						</div>
+						<div class="row">
+							<div class="col-xs-12">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <a class="btn btn-danger btn-sm" href="add.html">
+                                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>添加新友情链接
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="dataTables_wrapper form-inline no-footer">
+                                    <div class="row">
+                                        <form method="get" class="form-inline">
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label>类型：<select name="type">
+                                                                <option value="">全部</option>
+                                                                <option value="1" {|if $get['type']==1|}selected{|/if|}>文字</option>
+                                                                <option value="2" {|if $get['type']==2|}selected{|/if|}>图片</option>
+                                                            </select></label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                    <label>状态：<select name="status">
+                                                                <option value="">全部</option>
+                                                                <option value="0" {|if $get['status']===0|}selected{|/if|}>禁止</option>
+                                                                <option value="1" {|if $get['status']===1|}selected{|/if|}>正常</option>
+                                                            </select></label>
+                                            </div>
+                                            <div class="col-sm-3 col-xs-6">
+                                                <label><input type="submit" value="查询" class="btn btn-xs btn-success"></label>
+                                            </div>
+                                        </form>
+                                    </div>
+                                    <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                                        <thead>
+                                            <tr>
+                                                <th>序号</th>
+                                                <th>分类</th>
+                                                <th>名称</th>
+                                                <th>内容</th>
+                                                <th>跳转</th>
+                                                <th>状态</th>
+                                                <th>排序</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            {|foreach($links as $val)|}
+                                            <tr>
+                                                <td>{|$val['id']|}</td>
+                                                <td>
+                                                    {|if $val['type']==1|}
+                                                    <span class="badge">文字</span>
+                                                    {|elseif $val['type']==2|}
+                                                    <span class="badge badge-grey">图片</span>
+                                                    {|else|}
+                                                    {|/if|}
+                                                </td>
+                                                <td>{|$val['link_name']|}</td>
+                                                <td>{|if $val['pic_url']|}<a href="{|$val['pic_url']|picsize|}" target="_blank">广告图</a>{|/if|}</td>
+                                                <td>{|$val['to_url']|}</td>
+                                                <td>{|$val['status']|status|}</td>
+                                                <td>{|$val['sort']|}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-xs btn-info" href="edit.html?id={|$val[id]|}">
+                                                            <i class="ace-icon fa fa-pencil bigger-120"></i>编辑
+                                                        </a>
+                                                        <a class="btn btn-xs btn-danger" href="del.html?id={|$val[id]|}" onclick="return confirm('确定删除？');">
+                                                            <i class="ace-icon fa fa-trash-o bigger-120"></i>删除
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {|/foreach|}
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-sm-6 col-xs-6">
+                                        </div>
+                                        <div class="col-sm-6 col-xs-6">
+                                            {|if $links|}
+                                            {|include 'common/page/style2.html'|}
+                                            {|/if|}
+                                        </div>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

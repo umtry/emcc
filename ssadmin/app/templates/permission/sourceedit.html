@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+        {|include 'common/header.html'|}
+	</head>
+
+	<body class="no-skin">
+		{|include 'common/navbar.html'|}
+		<div class="main-container" id="main-container">
+			{|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+			<div class="main-content">
+				{|include 'common/breadcrumbs.html'|}
+				<div class="page-content">
+					<div class="page-content-area">
+						<div class="page-header">
+							<h1>权限资源编辑</h1>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-12">
+                                <form class="form-horizontal" role="form" method="post">
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 所属栏目 </label>
+										<div class="col-sm-2">
+                                            <select name="sysnav_id">
+                                                <option value="">请选择</option>
+                                                {|foreach($sysnav as $val)|}
+                                                <option value="{|$val['sysnav_id']|}" {|if $val['sysnav_id']==$license['sysnav_id']|} selected{|/if|}>{|$val['sysnav_name']|}</option>
+                                                {|/foreach|}
+                                            </select>
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 权限名称 </label>
+										<div class="col-sm-9">
+                                            <input type="text" name="license_name" value="{|$license['license_name']|}" placeholder="权限名称" class="input-sm input-large" />
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 权限类型 </label>
+										<div class="col-sm-9">
+                                            <label style='margin-right: 10px;'>
+                                                <input name="license_type" type="radio" class="ace" value='1' {|if $license['license_type']==1|} checked="checked"{|/if|} />
+                                                <span class="lbl"> 系统 </span>
+                                            </label>
+                                            <label>
+                                                <input name="license_type" type="radio" class="ace" value='2' {|if $license['license_type']==2|} checked="checked"{|/if|} />
+                                                <span class="lbl"> 前台 </span>
+                                            </label>
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 权限描述 </label>
+										<div class="col-sm-9">
+											<textarea class="input-xlarge" name="content" placeholder="权限描述">{|$license['license_name']|}</textarea>
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 链接地址 </label>
+										<div class="col-sm-9">
+											<input type="text" name="license_url" value="{|$license['license_url']|}" placeholder="链接地址，为空则不会在栏目下显示" class="input-sm input-xlarge" />
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 状态 </label>
+										<div class="col-sm-9">
+											<label style='margin-right: 10px;'>
+                                                <input name="status" type="radio" class="ace" value='1' {|if $license['status']==1|} checked="checked"{|/if|} />
+                                                <span class="lbl"> 正常 </span>
+                                            </label>
+                                            <label>
+                                                <input name="status" type="radio" class="ace" value='0' {|if $license['status']==0|} checked="checked"{|/if|} />
+                                                <span class="lbl"> 禁止 </span>
+                                            </label>
+										</div>
+									</div>
+                                    <div class="form-group">
+										<label class="col-sm-3 control-label no-padding-right"> 排序 </label>
+										<div class="col-sm-9">
+											<input type="text" name="sort" value="{|$license['sort']|}" placeholder="排序" class="input-sm input-large" />
+										</div>
+									</div>
+                                    
+                                    <div class="clearfix form-actions">
+										<div class="col-md-offset-3 col-md-9">
+											<button class="btn btn-info" type="submit">
+												<i class="ace-icon fa fa-check bigger-110"></i>
+												提 交
+											</button>
+											&nbsp; &nbsp; &nbsp;
+											<button class="btn" type="reset">
+												<i class="ace-icon fa fa-undo bigger-110"></i>
+												重 置
+											</button>
+										</div>
+									</div>
+                                </form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			{|include 'common/footer.html'|}
+		</div>
+        
+		<script type="text/javascript">
+			jQuery(function($) {
+				
+			});
+		</script>
+	</body>
+</html>

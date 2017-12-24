@@ -1,0 +1,83 @@
+{|include 'common/box_header.html' box_title=$box_title|}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="dataTables_wrapper form-inline no-footer">
+            <div class="row">
+                <form method="get" class="form-inline">
+                    <div class="col-sm-6 col-xs-6">
+                        <label>姓名：
+                            <input class="input-small" type="text" name="real_name" value="{|$get['real_name']|}">
+                        </label>
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
+                        <label>状态：
+                            <select name="status" class="form-control">
+                                <option value="">全部</option>
+                                <option value="1" {|if $get['status']==1|}selected{|/if|}>待发送</option>
+                                <option value="2" {|if $get['status']==2|}selected{|/if|}>发送成功</option>
+                                <option value="3" {|if $get['status']==3|}selected{|/if|}>发送失败</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="col-sm-6 col-xs-6">
+                        <label>电话：
+                            <input class="input-sm" type="text" name="phone" value="{|$get['phone']|}">
+                        </label>
+                    </div>
+                    <input type="hidden" name="mass_id" value="{|$get['mass_id']|}"/>
+                    <div class="col-sm-6 col-xs-6">
+                        <label><input type="submit" value=" 查 询 " class="btn btn-sm btn-success"></label>
+                        <a class="btn btn-danger btn-sm ajdialog" dataw="800" datah="400" dataurl="boxmassuseradd.html?mass_id={|$get['mass_id']|}" datatitle="添加临时发送用户" href="javascript:;">
+                            <i class="ace-icon fa glyphicon-plus align-top bigger-125"></i>
+                            添加临时发送用户
+                        </a>
+                    </div>
+                </form>
+            </div>
+            <table class="table table-striped table-bordered table-hover dataTable no-footer">
+                <thead>
+                    <tr>
+                        <th>序号</th>
+                        <th>客户姓名</th>
+                        <th>客户电话</th>
+                        <th>状态</th>
+                        <!--<th>发送时间</th>-->
+                        <th></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {|if $massuser|}
+                    {|foreach($massuser as $val)|}
+                    <tr>
+                        <td>{|$val['user_id']|}</td>
+                        <td>{|$val['real_name']|}</td>
+                        <td>{|$val['phone']|}</td>
+                        <td>
+                            {|if $val['status']==1|}待发送{|/if|}
+                            {|if $val['status']==2|}发送成功{|/if|}
+                            {|if $val['status']==3|}发送失败{|/if|}
+                        </td>
+                        <!--<td>{|$val['send_time']|dateformat|}</td>-->
+                        <td>
+                            <a class="btn btn-xs btn-danger ajlink" dataurl='deluser.html' data-param="id={|$val['id']|}" href="javascript:;" title="删除" linktype='del'>
+                                <i class="ace-icon fa fa-trash-o bigger-120"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {|/foreach|}
+                    {|/if|}
+                </tbody>
+            </table>
+            <div class="row">
+                <div class="col-sm-6 col-xs-6">
+                </div>
+                <div class="col-sm-6 col-xs-6">
+                    {|if $massuser|}
+                    {|include 'common/page/style2.html'|}
+                    {|/if|}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

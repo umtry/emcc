@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {|include 'common/header.html'|}
+    </head>
+    <body class="no-skin">
+        {|include 'common/navbar.html'|}
+        <div class="main-container" id="main-container">
+            {|include 'common/sidebar.html' siderbar_license_id=$_use_id|}
+            <div class="main-content">
+                {|include 'common/breadcrumbs.html'|}
+                <div class="page-content">
+                    <div class="page-content-area">
+                        <div class="page-header">
+                            <h1>添加新管理员</h1>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <form class="form-horizontal" role="form" method="post">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 管理员组 </label>
+                                        <div class="col-sm-2">
+                                            <select name="group_id">
+                                                <option value="">请选择</option>
+                                                {|foreach($group as $val)|}
+                                                <option value="{|$val['group_id']|}">{|$val['group_name']|}</option>
+                                                {|/foreach|}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 账号 </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="user_name" id="username" placeholder="账号" class="input-sm input-large" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 姓名 </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="real_name" id="realname" placeholder="姓名" class="input-sm input-large" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 密码 </label>
+                                        <div class="col-sm-9">
+                                            <input type="password" name="pwd1" id="password" placeholder="密码" class="input-sm input-large" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 确认密码 </label>
+                                        <div class="col-sm-9">
+                                            <input type="password" name="pwd2" id="repassword" placeholder="确认密码" class="input-sm input-large" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 状态 </label>
+                                        <div class="col-sm-9">
+                                            <label style='margin-right: 10px;'>
+                                                <input name="status" type="radio" class="ace" value='1' checked="checked" />
+                                                <span class="lbl"> 正常 </span>
+                                            </label>
+                                            <label>
+                                                <input name="status" type="radio" class="ace" value='0' />
+                                                <span class="lbl"> 禁止 </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 禁止原因 </label>
+                                        <div class="col-sm-9">
+                                            <textarea class="input-xlarge" name="lock_note" placeholder="禁止原因"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 备注 </label>
+                                        <div class="col-sm-9">
+                                            <textarea class="input-xlarge" name="remark" placeholder="备注"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 绑定电话通道 </label>
+                                        <div class="col-sm-9">
+                                            <input type="text" name="port" class="input-sm input-large" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label no-padding-right"> 管理类型 </label>
+                                        <div class="col-sm-9">
+                                            <label style='margin-right: 10px;'>
+                                                <input name="is_system" type="radio" class="ace" value='0' checked="checked" />
+                                                <span class="lbl"> 一般管理员 </span>
+                                            </label>
+                                            <label>
+                                                <input name="is_system" type="radio" class="ace" value='1' />
+                                                <span class="lbl"> 超级管理员 </span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix form-actions">
+                                        <div class="col-md-offset-3 col-md-9">
+                                            <button class="btn btn-info" type="submit">
+                                                <i class="ace-icon fa fa-check bigger-110"></i>
+                                                提 交
+                                            </button>
+                                            &nbsp; &nbsp; &nbsp;
+                                            <button class="btn" type="reset">
+                                                <i class="ace-icon fa fa-undo bigger-110"></i>
+                                                重 置
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {|include 'common/footer.html'|}
+        </div>
+
+        <script type="text/javascript">
+            jQuery(function ($) {
+
+            });
+        </script>
+    </body>
+</html>
